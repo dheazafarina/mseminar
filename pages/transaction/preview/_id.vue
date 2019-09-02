@@ -9,9 +9,12 @@
         <th class="th_left">
           Data Pemesan
         </th>
-        <th class="th_right">
-          Edit
-        </th>
+        <!-- <nuxt-link :to="'/transaction/person/'22?temporary=12&seminar=seminar-free&ticket=20"> -->
+          <th class="th_right"
+            @click="toPerson">
+            Edit
+          </th>
+        <!-- </nuxt-link> -->
       </tr>
       <tr>
         <td class="font_bold padding_">
@@ -130,6 +133,7 @@
         showConfirm: false,
         dialog: false,
         invoice: [],
+        seminar_title: ''
       }
     },
     computed: {
@@ -141,11 +145,15 @@
       }
     },
     mounted() {
+      this.seminar_title = this.$route.query.seminar
       this.fetchList()
     },
     methods: {
       toConfirm () {
         this.showConfirm = true
+      },
+      toPerson () {
+        window.location = `/transaction/person/${this.$route.params.id}?ticket=${this.$route.params.id}&seminar=${this.seminar_title}`
       },
       async fetchList () {
         await this.$store.dispatch('transaction/preview/GET_PREVIEW', {

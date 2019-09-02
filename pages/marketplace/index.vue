@@ -108,15 +108,16 @@
       </div>
 
       <!-- loading -->
-      <v-layout
-        justify-center
-        align-center
-        v-if="process">
-        <v-progress-circular
-          indeterminate
-          color="#16A086"
-          class="loader_"/>
-      </v-layout>
+      <div class="centered_img">
+        <v-layout
+          justify-center
+          align-center
+          v-if="process">
+          <v-progress-circular
+            indeterminate
+            color="#16A086" />
+        </v-layout>
+      </div>
 
       <!-- LIST MARKETPLACE -->
       <div v-if="!process && market_list.length > 0">
@@ -125,7 +126,7 @@
           :key="index"
           class="card_list">
           <nuxt-link
-            :to="'/marketplace/main/info/'+`${l.seminar_id}`+'/'+l.seminar_title.split(' ').join('-')"
+            :to="'/marketplace/main/info/'+`${l.seminar_ticket_id}`+'/'+l.seminar_title.split(' ').join('-')"
             class="links">
             <div>
               <img
@@ -167,18 +168,59 @@
                 v-if="l.seminar_category_ticket_title === 'Paid'"
                 style="margin-top: 15px;">
                 <div v-for="(p, index) in l.ticket_config" :key="index">
-                  <div class="text_color text_price">
-                  {{ p.seminar_config_ticket_price | price}}
+                  <div v-if="index === 0">
+                    <div class="text_color text_price">
+                      {{ p.seminar_config_ticket_price | price}}
+                    </div>
+                    <div v-if="p.is_presale == 'yes'"
+                      class="price_presale text_price">
+                      {{ p.seminar_config_ticket_price_original | price}}
+                    </div>
+                    <div v-if="p.is_presale == 'yes'"
+                      class="color_sub">
+                      <span class="capitalize">{{ p.seminar_config_ticket_type_seat }} - </span>
+                      tersedia {{ p.seminar_config_ticket_total }} kursi
+                    </div>
+                    <div v-if="p.is_presale == 'no'"
+                      class="color_sub">
+                      <span class="capitalize">{{ p.seminar_config_ticket_type_seat }} - </span>
+                      tersedia {{ p.seminar_config_ticket_total }} kursi
+                    </div>
                   </div>
-                  <div class="color_sub">
-                    <span class="capitalize">{{ p.seminar_config_ticket_type_seat }} - </span>
-                    tersedia {{ p.seminar_config_ticket_total }} kursi
+
+                  <div v-if="index > 0">
+                    <div class="text_color text_price_sub">
+                      {{ p.seminar_config_ticket_price | price}}
+                    </div>
+                    <div class="color_sub_price">
+                      <span class="capitalize">{{ p.seminar_config_ticket_type_seat }} - </span>
+                      tersedia {{ p.seminar_config_ticket_total }} kursi
+                    </div>
                   </div>
                 </div>
-                
               </div>
+
             </div>
           </nuxt-link>
+        </div>
+
+        <div class="text_center">
+          <v-btn
+            small
+            class="btn_pagin"
+            color="#16A086"
+            v-if="market_pagination.next > 0" 
+            @click="fetchSeminarPublic(market_pagination.current+1)">
+            Selanjutnya
+          </v-btn>
+          <v-btn
+            small
+            class="btn_pagin"
+            color="#16A086"
+            v-if="market_pagination.next < 0" 
+            @click="fetchSeminarPublic(market_pagination.current-1)">
+            Sebelumnya
+          </v-btn>
         </div>
       </div>
 
@@ -188,11 +230,11 @@
         <div class="centered_img">
           <img :src="require('~/assets/image/Seminar_not_found.png')"
             class="img_no_data">
-          <p class="font12 text_color"
+          <p class="font12"
             v-if="not_found">
             Maaf Seminar Belum Tersedia
           </p>
-          <p class="font12 text_color"
+          <p class="font12"
             v-if="not_found_search">
             Seminar yang Kamu Cari Tidak Ditemukan
           </p>
@@ -324,7 +366,7 @@ export default {
       this.process = true
       await this.$store.dispatch('product/marketplace/GET_MARKET_PUBLIC', {
           pagenum: pagenum,
-          limit: 5,
+          limit: 1,
           title: this.sorting.keyword,
           city: this.sorting.city,
           schedule: this.date,
@@ -412,6 +454,9 @@ export default {
 </script>
 
 <style>
+.text_peice {
+  font-size: 14px; 
+}
 .v-text-field.v-text-field--solo:not(.v-text-field--solo-flat) > .v-input__control > .v-input__slot {
   box-shadow: 0px 0px 0px 0px rgba(0, 0, 0, 0.2),
               0px 0px 0px 0px rgba(0, 0, 0, 0.14),

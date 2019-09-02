@@ -1,15 +1,16 @@
 <template>
   <div class="body_">
     <!-- loading -->
-    <v-layout
-      justify-center
-      align-center
-      v-if="process">
-      <v-progress-circular
-        indeterminate
-        color="#16A086"
-        class="loader_"/>
-    </v-layout>
+    <div class="centered_img">
+      <v-layout
+        justify-center
+        align-center
+        v-if="process">
+        <v-progress-circular
+          indeterminate
+          color="#16A086" />
+      </v-layout>
+    </div>
 
     <!-- aktivasi payment -->
     <div v-show="scalar(payment) || payment.member_status !== 'approved'">
@@ -50,19 +51,16 @@
       <div
         v-if="Object.keys(payment_profile).length > 0"
         style="text-align: center">
-        <v-avatar
-          contain
-          :tile="false"
-          size="120"
-          color="grey lighten-4">
-          <img :src="member.member_profile_pic"
-            aspect-ratio="1">
-        </v-avatar>
+        <img
+          :src="member.member_profile_pic"
+          height="100px"
+          contain>
       </div>
       <v-expansion-panels
         v-if="Object.keys(payment_profile).length > 0"
         focusable 
-        class="mt-5 mb-3 b-1">
+        class="mt-5 mb-3 b-1"
+        style="border: 1px solid rgba(0, 0, 0, 0.12);">
         <v-expansion-panel>
           <v-expansion-panel-header disable-icon-rotate>
             Payment
@@ -143,7 +141,8 @@
           outlined
           v-for="(l, index) in payment_list"
           :key="index">
-          <v-list-item two-line>
+          <v-list-item two-line
+            style="margin: 5px;">
             <v-list-item-content>          
               <v-list-item-title>
                 {{ l.member_deposit_detail_desc }}
@@ -160,7 +159,8 @@
           </v-list-item>
           <v-expansion-panels>
             <v-expansion-panel>
-              <v-expansion-panel-header disable-icon-rotate>
+              <v-expansion-panel-header disable-icon-rotate
+                style="padding: 16px 10px">
                 Lihat Detail
                 <template v-slot:actions>
                   <v-icon>mdi-chevron-down</v-icon>
@@ -245,11 +245,11 @@
       </div>
 
       <!-- no data -->
-      <div v-if="payment_list.length === 0">
+      <div v-if="payment_list.length < 0">
         <div class="text_center">
           <img :src="require('~/assets/image/Seminar_not_found.png')"
             class="img_no_data">
-          <p class="font12 text_color">
+          <p class="font12">
             Belum Terdapat Riwayat Transaksi
           </p>
         </div>

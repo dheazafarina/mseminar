@@ -24,8 +24,8 @@
             <div class="v-text-field__slot">
               <input
                 class="btn_btn"
-                type="text"
-                name="username"
+                type="email"
+                name="email"
                 v-model="username"
                 v-validate="'required|email'"
                 placeholder="E-mail">
@@ -78,7 +78,11 @@
           </v-btn>
         </div>
       </div>
-      <div class="mt10">
+      <div class="text_center capitalize _error"
+        v-if="response.length > 0">
+        {{ response }}
+      </div>
+      <div class="mt-8">
         Belum menerima verifikasi?
         <span class="text_color">
           Kirim ulang disini
@@ -105,23 +109,24 @@
 <script>
   const Cookie = process.client ? require('js-cookie') : undefined
   export default {
-    middleware: 'unauth',
     data () {
       return {
         username: '',
-        password: ''
+        password: '',
+        response: '',
+        process: false
       }
     },
      methods: {
       async login () {
         const valid = await this.$validator.validateAll()
         if (valid) {
+          this.process = true
           await this.$store.dispatch('auth/POST_LOGIN', {
             username: this.username,
             password: this.password
           })
           .then ((res) => {
-            console.log(res)
             if (res.status_code === 201) {
               Cookie.set('user', res.result)
               Cookie.set('token', res.token, { 
@@ -131,6 +136,7 @@
             } else {
               this.response = res.message
             }
+            this.process = false
           })
         }
       }

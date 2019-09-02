@@ -1,15 +1,16 @@
 <template>
   <div class="body_">
     <!-- loading -->
-    <v-layout
-      justify-center
-      align-center
-      v-if="process">
-      <v-progress-circular
-        indeterminate
-        color="#16A086"
-        class="loader_"/>
-    </v-layout>
+    <div class="centered_img">
+      <v-layout
+        justify-center
+        align-center
+        v-if="process">
+        <v-progress-circular
+          indeterminate
+          color="#16A086" />
+      </v-layout>
+    </div>
 
     <!-- detail ticket -->
     <v-container fluid class="elevation-3" v-if="!process && Object.keys(p_ticket).length > 0">

@@ -26,9 +26,9 @@
         </v-btn>
       </div>
       <div class="mt10">
-        <v-divider></v-divider>
+        <!-- <v-divider></v-divider> -->
           <span>Atau</span>
-        <v-divider></v-divider>
+        <!-- <v-divider></v-divider> -->
       </div>
       <div class="mt10">
         <v-btn

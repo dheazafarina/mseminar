@@ -1,89 +1,101 @@
 <template>
-  <div style="background: #fff;" class="body_">
-    <div style="margin-bottom: 85%">
-      <div class="text_center">
-        <img
-          :src="require('~/assets/image/Banner.jpg')"
-          aspect-ratio="1" 
-          class="img_banner" />
-        <div class="search_box">
-          <div>
-            Temukan seminar di kotamu
-          </div>
-
-          <!-- <div>
+  <div class="body_">
+    <div id="bennerSeminar" class="vertical-align-content">
+      <p class="text_title_benner">
+        Temukan seminar di kotamu
+      </p>
+      <v-layout row wrap style="padding: 0px 25% 0px 15%;">
+          <v-flex xs10 sm9 md9>
             <v-select
-              style="position: absolute"
+              v-model="e2"
+              :items="states"
               label="Kota"
-              solo></v-select>
-            <span><v-btn depressed small>Normal</v-btn></span>
-          </div> -->
-
-        </div>
-      </div>
-
-      <div class="body_ howto">
-        <div>
-          <p class="title_step_">
-            Bagaimana Cara Membeli Tiket Seminar di Gotraining?
-          </p>
-        </div>
-        <div style="margin-top: 5%; text-align: center;">
-          <v-layout row wrap class="layout_wrap_">
-            <v-flex xs12 sm3 md3 style="z-index: 1">
-              <span>
-                <img
-                  :src="require('~/assets/landing/1.svg')"
-                  aspect-ratio="1"
-                  class="width_img"/>
-                <br>
-                <span class="hidden-sm-and-down" style="text-align: left; color: #fff; font-size: 18px; margin-left: -18px; margin-top: 5%;">
-                  Cari seminar pilihan mu
-                </span>
-              </span>
-            </v-flex>
-            <v-flex xs12 sm3 md3 style="z-index: 1">
-              <span>
-                <img
-                  :src="require('~/assets/landing/2.svg')"
-                  aspect-ratio="1"
-                  class=" width_img"/>
-                <br>
-                <span class="hidden-sm-and-down" style="text-align: center; color: rgb(255, 255, 255); font-size: 18px;">
-                  Lakukan pembelian tiket seminar
-                </span>
-              </span>
-            </v-flex>
-            <v-flex xs12 sm3 md3 style="z-index: 1">
-              <span>
-                <img
-                  :src="require('~/assets/landing/3.svg')"
-                  aspect-ratio="1"
-                  class=" width_img"/>
-                <br>
-                <span class="hidden-sm-and-down" style="text-align: center; color: rgb(255, 255, 255); font-size: 18px;">
-                  Dapatkan e-tiket via email
-                </span>
-              </span>
-            </v-flex>
-            <v-flex xs12 sm3 md3 style="z-index: 1">
-              <span>
-                <img
-                  :src="require('~/assets/landing/4.svg')"
-                  aspect-ratio="1"
-                  class=" width_img"/>
-                <br>
-                <span class="hidden-sm-and-down" style="text-align: center; color: rgb(255, 255, 255); font-size: 18px;">
-                  Hadiri seminar favoritmu
-                </span>
-              </span>
-            </v-flex>
-          </v-layout>
-        </div>
+              solo
+              class="aaa">
+            </v-select>
+          </v-flex>
+          <v-flex xs2 sm2 md2>
+            <v-btn 
+              :disabled="e2 === null" 
+              @click="toMarket" 
+              style="margin-top: 9px;
+                border-radius: 0px;
+                box-shadow: none;
+                height: 34px;" 
+              color="#27626a">
+              <v-icon>mdi-magnify</v-icon>
+            </v-btn>
+          </v-flex>
+      </v-layout>
+      <div class="link_to">
+        <nuxt-link to="/marketplace">
+          <v-icon>mdi-home</v-icon>
+          <span style="color: #fff !important;">Jelajah Seminar</span>
+          <v-icon style="vertical-align: middle;" dark>mdi-arrow-right</v-icon>
+        </nuxt-link>
       </div>
     </div>
-    
-
+    <div class="step__">
+      <div>
+        <p class="title_step_">
+          Bagaimana Cara Membeli Tiket Seminar di Gotraining?
+        </p>
+      </div>
+      <div style="margin-top: 5%; text-align: center;">
+        <hr class="hr_-">
+        <v-layout row wrap class="layout_wrap_">
+          <v-flex xs12 sm3 md3 style="z-index: 1">
+            <span>
+              <img
+                :src="require('~/assets/landing/1.svg')"
+                aspect-ratio="1"
+                class="width_img"/>
+              <br>
+              <!-- hidden-sm-and-down -->
+              <span style="text-align: center; color: rgb(255, 255, 255); font-size: 10px;">
+                Cari seminar pilihan mu
+              </span>
+            </span>
+          </v-flex>
+          <v-flex xs12 sm3 md3 style="z-index: 1">
+            <span>
+              <img
+                :src="require('~/assets/landing/2.svg')"
+                aspect-ratio="1"
+                class=" width_img"/>
+              <br>
+              <span style="text-align: center; color: rgb(255, 255, 255); font-size: 10px;">
+                Lakukan pembelian tiket seminar
+              </span>
+            </span>
+          </v-flex>
+          <v-flex xs12 sm3 md3 style="z-index: 1">
+            <span>
+              <img
+                :src="require('~/assets/landing/3.svg')"
+                aspect-ratio="1"
+                class=" width_img"/>
+              <br>
+              <span style="text-align: center; color: rgb(255, 255, 255); font-size: 10px;">
+                Dapatkan e-tiket via email
+              </span>
+            </span>
+          </v-flex>
+          <v-flex xs12 sm3 md3 style="z-index: 1">
+            <span>
+              <img
+                :src="require('~/assets/landing/4.svg')"
+                aspect-ratio="1"
+                class=" width_img"/>
+              <br>
+              <span style="text-align: center; color: rgb(255, 255, 255); font-size: 10px;">
+                Hadiri seminar favoritmu
+              </span>
+            </span>
+          </v-flex>
+        </v-layout>
+      </div>
+    </div>
     <div class="text_category">
       <p>
         Temukan Seminar yang kamu cari disini
@@ -93,6 +105,7 @@
       <v-layout row wrap>
         <v-flex xs12 sm6 md4 order-md1 order-sm2 v-for="(item, index) in itemcat" :key="index">
           <v-card tile flat>
+            <a :href="`/marketplace?category=${item.link}`">
               <v-card-text style="padding: 0px;">
                 <img
                   :src="item.img"
@@ -102,6 +115,7 @@
               <p class="text_title_category">
                 {{item.name}}
               </p>
+            </a>
           </v-card>
         </v-flex>
       </v-layout>
@@ -123,42 +137,34 @@
         </v-flex>
       </v-layout>
     </div>
-    <div style="margin: 5% 5% ;">
+    <div>
       <p class="text_partner">
         Bergabung Menjadi Mitra/Partner/Institusi
       </p>
-      <v-layout row wrap style="margin-bottom: 1%;">
-        <v-flex xs12 sm6 md7 order-md1 order-sm1>
-          <v-card tile flat>
-            <v-card-text class="descript_style_">
-              Jalin kerjasama dengan kami sebagai institusi untuk berpartisipasi dalam memajukan sistem pendidikan di Indonesia serta menjangkau lebih banyak siswa.
-            </v-card-text>
-          </v-card>
-        </v-flex>
-        <v-flex xs12 sm6 md5 order-md2 order-sm2>
-          <v-card tile flat>
-            <v-card-text style="padding: 0px;">
-              <div class="text_center mt-2">
-                <a class="link_foo" href="https://myinstitusi.gotraining.co.id/pendaftaran-institusi" target="_blank">
-                  <v-btn rounded class="btn_partner_">Daftar sebagai Partner</v-btn>
-                </a>
-              </div>
-            </v-card-text>
-          </v-card>
-        </v-flex>
-      </v-layout>
-      <div two-line>
-        <img
-          :src="require('~/assets/mitra/teras.png')"
-          aspect-ratio="1"
-          class="partner_img_style"/>
-        <img
-          :src="require('~/assets/mitra/LOGO 1.png')"
-          aspect-ratio="1"
-          class="partner_img_style"/>
+      <p>
+        Jalin kerjasama dengan kami sebagai institusi untuk berpartisipasi dalam memajukan sistem pendidikan di Indonesia serta menjangkau lebih banyak siswa.
+      </p>
+      <div class="text_center mb-4">
+        <a class="link_foo" href="https://myinstitusi.gotraining.co.id/pendaftaran-institusi" target="_blank">
+          <v-btn rounded class="btn_partner_">Daftar sebagai Partner</v-btn>
+        </a>
+      </div>
+      <div>
+        <v-layout row wrap>
+          <v-flex xs12 sm6 md2 order-md1 order-sm2 v-for="(item, index) in mitra" :key="index">
+            <v-card tile flat>
+              <v-card-text style="padding: 5px;">
+                <img
+                  :src="item.img"
+                  aspect-ratio="1"
+                  class="partner_img_style"/>
+              </v-card-text>
+            </v-card>
+          </v-flex>
+        </v-layout>
       </div>
     </div>
-    <div class="step__ hidden-sm-and-down" style="margin-top: 7%;">
+    <div class="step__2 hidden-sm-and-down" style="margin-top: 7%;">
       <div>
         <p style="color: #fff; text-align: center; font-size: 30px; font-weight: bold;">
           Kenapa memilih seminar di Gotraining?
@@ -184,8 +190,8 @@
         </v-layout>
       </div>
     </div>
-    <div style="margin-top: 18%; margin-bottom: 12%;">
-      <div class="step__ hidden-sm-and-down" style="width: 60%;">
+    <div style="margin-top: 12%; margin-bottom: 12%;">
+      <div class="step__3 hidden-sm-and-down" style="width: 60%;">
         <p class="text_android" style="margin-bottom: 20px;">
           Aplikasi Seminar Gotraining Telah Tersedia Di Google Playstore
         </p>
@@ -216,7 +222,17 @@
     middleware: 'unauth',
     data() {
       return {
-        process: false,
+        e2: null,
+        items: [
+          { text: 'State 1' },
+          { text: 'State 2' },
+          { text: 'State 3' },
+          { text: 'State 4' },
+          { text: 'State 5' },
+          { text: 'State 6' },
+          { text: 'State 7' },
+        ],
+        states: [],
         itemcat: [
           {
             name: 'Seminar Motivasi',
@@ -288,26 +304,16 @@
           }
         ],
         img_benner:[],
-        id: '',
-        isEditing: false,
-        model: null,
-        states: [
-          'Alabama', 'Alaska', 'American Samoa', 'Arizona',
-          'Arkansas', 'California', 'Colorado', 'Connecticut',
-          'Delaware', 'District of Columbia', 'Federated States of Micronesia']
-      }
-    },
-    computed: {
-      market_list () {
-        return this.$store.state.product.marketplace.list
+        items: ['Foo', 'Bar', 'Fizz', 'Buzz'],
       }
     },
     mounted(){
-      this.fetchDataLanding()
+      this.fetchCity()
     },
     methods: {
       fetchDataLanding: function () {
         var self = this
+        // this.loaderdata = false;
         axios.get(`${process.env.API}landing-page/banner`, {
           headers: {
             'X-Authorization': `${process.env.AUTH_PUBLIC}`,
@@ -321,32 +327,34 @@
           } else {
             self.img_benner = []
           }
+          // self.loaderdata = true;
         })
         .catch(function (err) {
           // self.img_benner = [];
         })
       },
-      category(id) {
-        console.log(id)
-        this.id = id
-        this.fetchSeminarPublic()
+      fetchCity: function (id) {
+        var self = this
+        axios.get(`${process.env.API}sys-public/city`, {
+          headers: {
+            'X-Authorization': `${process.env.AUTH_PUBLIC}`
+          }
+        })
+        .then(res => {
+          if (res.status == 200) {
+            for (let i in res.data.result) {
+              this.states.push(res.data.result[i].sys_city_city_name);
+            }
+          } else {
+            self.items = []
+          }
+        })
+        .catch(function (err) {
+          // self.dataSeminar = []
+        })
       },
-      async fetchSeminarPublic (pagenum) {
-        if (!pagenum) { pagenum = 1 }
-        this.process = true
-        await this.$store.dispatch('product/marketplace/GET_MARKET_PUBLIC', {
-            pagenum: pagenum,
-            limit: 5,
-            title: '',
-            city: '',
-            schedule: '',
-            category: this.id
-        })
-        .then ((res) => {
-          // window.location = '/marketplace'
-          console.log(res)
-        })
-        this.process = false
+      toMarket() {
+        window.location = `/marketplace?city=${this.e2.split(' ').join('-')}`
       }
     },
     head () {
@@ -365,23 +373,6 @@
 
 
 <style>
-.howto {
-  margin-top: -18%;
-  position: absolute;
-  margin-left: 0;
-  margin-right: 200px;
-  height: 400px;
-  background-image: linear-gradient(#16A086, #009FA5);
-  padding: 5% 10%;
-}
-.search_box {
-  float: none;
-  margin-top: -37%;
-  margin-bottom: 35%;
-  font-size: 13px;
-  font-weight: bold;
-  color: slategrey;
-}
 @media screen and (min-width: 1000px) {
   .banner_size_img {
     flex-basis: 89.333333% !important;
@@ -407,13 +398,13 @@
   .title_step_ {
     color: #fff;
     text-align: center;
-    font-size: 12px !important;
+    font-size: 14px !important;
     font-weight: bold;
   }
   .text_category {
     margin: 6% 0 4%;
     text-align: center;
-    font-size: 18px !important;
+    font-size: 14px !important;
     font-weight: bold;
   }
   .text_partner {
@@ -436,6 +427,8 @@
   }
   .banner_style_ {
     flex-wrap: nowrap !important;
+    /* width: 88%; */
+    margin-left: 10px;
   }
   .img_banner_style_ {
     padding-right: 4px;
@@ -452,8 +445,6 @@
 }
   .partner_img_style {
     width: 80%;
-    margin-right: 20px;
-    margin-top: 15px;
   }
   .img_banner_style_ {
     padding-right: 4px;
@@ -509,7 +500,7 @@
   .text_title_category {
     text-align: center;
     margin-top: -60px;
-    font-size: 27px;
+    font-size: 18px;
     font-weight: bold;
     color: #fff;
   }
@@ -527,9 +518,17 @@
     font-size: 18px;
   }
   .step__ {
+    height: 415px;
+    background: #27626a;
+    padding: 5% 10%;
+  }
+  .step__2 {
+    background: #27626a;
+    padding: 5% 10%;
+  }
+  .step__3 {
     height: 500px;
-    background-image: linear-gradient(#16A086, #009FA5);
-    margin-top: 15px;
+    background: #27626a;
     padding: 5% 10%;
   }
   .text_title_seminar {
@@ -565,6 +564,9 @@
     z-index: 0;
     margin-top: 60px;
   }
+  .width_img {
+      width: 45%;
+    }
   @media only screen and (max-width: 1300px) {
     .img:after {
       content: "";
@@ -580,8 +582,7 @@
     }
     .step__ {
       height: 400px;
-      background-image: linear-gradient(#16A086, #009FA5);
-      margin-top: 15px;
+      background: #27626a;
       padding: 5% 10%;
     }
   }
@@ -599,25 +600,55 @@
       margin-left: 7%;
     }
     .width_img {
-      width: 60%;
+      width: 80%;
     }
     .step__ {
-      height: 170px;
-      background-image: linear-gradient(#16A086, #009FA5);
-      margin-top: 15px;
+      height: 220px;
+      background: #27626a;
       padding: 5% 10%;
     }
-    .howto {
-      margin-top: -40px;
-      position: absolute;
-      margin-left: 0;
-      background-image: linear-gradient(#16A086, #009FA5);
-      padding: 5% 10%;
-      margin-right: 12px;
-      height: 200px;
-    }
-    .v-text-field.v-text-field--solo .v-input__control {
-      min-height: 0px;
-    }
+  }
+  .benner_index {
+    display: flex;
+    max-width: 400px;
+    margin-left: auto;
+    margin-right: auto;
+    padding-top: 225px;
+  }
+  .vertical-align-content {
+    padding: 4% 0%;
+    align-items:center;
+    /* Uncomment next line to get horizontal align also */
+  }
+  .text_title_benner {
+    font-size: 13px;
+    font-weight: 700;
+    color: #696969;
+    text-align: center;
+  }
+  .link_to {
+    text-align: center;
+    margin-top: 1%;
+    background-color: #27626ac2;
+    padding: 8px;
+    border-bottom: 0;
+    border-radius: 8px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+    font-weight: 700;
+    color: #fff !important;
+  }
+  .aaa.v-input__control {
+    min-height: 42px !important;
+    padding: 0;
+  }
+  #bennerSeminar {
+    background: url('~assets/image/Banner.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+  }
+  .v-input__slot {
+    box-shadow: none !important;
   }
 </style>

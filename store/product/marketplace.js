@@ -47,7 +47,6 @@ const actions = {
       }
     })
     commit('SET_MARKET_DETAIL', data.result)
-    return data
   },
   //PUBLIC
   async GET_MARKET_PUBLIC ({ commit }, { pagenum, limit, title, city, schedule, category }) {
@@ -74,7 +73,6 @@ const actions = {
       }
     })
     commit('SET_MARKET_DETAIL', data.result)
-    return data
   },
 }
 

@@ -121,6 +121,28 @@
       </div>
     </div>
     </div>
+
+    <v-dialog
+      persistent
+      v-model="dialog"
+      max-width="290">
+      <v-card>
+        <v-card-title class="headline" />
+        <v-card-text class="capitalize text_center">
+          {{ message }}
+        </v-card-text>
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn
+            small
+            color="#16a086"
+            class="capitalize font12 btn_color"
+            @click="toPurchase">
+            OK
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
  
     <div class="text_center"
       style="margin: 15px">
@@ -162,7 +184,10 @@
         seminar_title: '',
         last_id: '',
         product_type_ticket: '',
-        type_seat: ''
+        type_seat: '',
+        message: '',
+        chart_id: '',
+        dialog: false
       }
     },
     computed: {
@@ -214,6 +239,9 @@
             } else {
               this.toCart()
             }
+          } else if (res.status_code == 404) {
+            this.message = res.message
+            this.dialog = true
           }
         })
       },
@@ -237,6 +265,9 @@
             } else {
               this.toCart()
             }
+          } else if (res.status_code == 404) {
+            this.message = res.message
+            this.dialog = true
           }
         })
       },
@@ -264,6 +295,9 @@
             } else {
               this.toCart()
             }
+          } else if (res.status_code == 404) {
+            this.message = res.message
+            this.dialog = true
           }
         })
       },
@@ -284,6 +318,9 @@
             } else {
               this.toCart()
             }
+          } else if (res.status_code == 404) {
+            this.message = res.message
+            this.dialog = true
           }
         })
       },
@@ -330,8 +367,12 @@
           seminar_id: this.$route.params.id
         })
         .then ((res) => {
+          this.chart_id = res.result.seminar_temporary_cart_seminar_id
           this.type_seat = res.result.seminar_temporary_cart_type_seat
         })
+      },
+      toPurchase () {
+        window.location = '/purchase/'+this.chart_id+'?seminar='+this.seminar_title
       }
     }
   }

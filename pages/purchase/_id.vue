@@ -1,19 +1,19 @@
 <template>
   <div class="body_">
+    <!-- loading -->
+    <div class="centered_img">
+      <v-layout
+        justify-center
+        align-center
+        v-if="process">
+        <v-progress-circular
+          indeterminate
+          color="#16A086" />
+      </v-layout>
+    </div>
     <div class="font_bold">
       Harga
     </div>
-
-    <!-- loading -->
-    <v-layout
-      justify-center
-      align-center
-      v-if="process">
-      <v-progress-circular
-        indeterminate
-        color="#16A086"
-        class="loader_"/>
-    </v-layout>
 
     <div v-if="!process">
       <table class="table_price">
@@ -25,13 +25,20 @@
           </th>
         </tr>
         <tr v-for="(cat, index) in ticket_config.config_seat" :key="index">
-          <td class="td_price capitalize">{{ cat.seminar_config_ticket_type_seat }}</td>
-          <td class="td_price">{{ cat.seminar_config_ticket_available }} Kursi</td>
-          <td class="td_price text_color font_bold">
+          <td class="td_price capitalize" :class="{
+          'disable_': cat.seminar_config_ticket_available === 0
+          }">{{ cat.seminar_config_ticket_type_seat }}</td>
+          <td class="td_price" :class="{
+          'disable_': cat.seminar_config_ticket_available === 0
+          }">{{ cat.seminar_config_ticket_available }} Kursi</td>
+          <td :class="{
+          'disable_price': cat.seminar_config_ticket_available === 0
+          }" class="td_price text_color font_bold">
             {{ cat.seminar_config_ticket_price | price }}
           </td>
           <td>
             <v-radio-group
+              :disabled="cat.seminar_config_ticket_available === 0"
               v-on:click="cek = props"
               v-model="selecting" class="radio_btn">
               <v-radio color="#16a086" :value="cat"></v-radio>
@@ -106,6 +113,9 @@
     computed: {
       ticket_config () {
         return this.$store.state.transaction.purchase.tconfig
+      },
+      bill () {
+        return this.$store.state.transaction.purchase.bill
       }
     },
     mounted() {
@@ -120,6 +130,14 @@
         })
         .then(res => {
           this.config_seat = res.result.config_seat
+          this.fetchTicketBill()
+        })
+        this.process = false;
+      },
+      async fetchTicketBill () {
+        this.process = true;
+        await this.$store.dispatch('transaction/purchase/GET_TICKET_CONFIG_BILL', {
+          seminar_id: this.ticket_config.seminar_id
         })
         this.process = false;
       },
@@ -138,6 +156,12 @@
 </script>
 
 <style>
+.disable_ {
+  color: grey
+}
+.disable_price {
+  color: #16a086ad !important
+}
 .radio_btn {
   margin-left: 10px;
   margin-right: -13px;

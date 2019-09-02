@@ -75,6 +75,46 @@
       </div>
     </div>
 
+    <div v-if="!process && active === 1 && Object.keys(my_ticket).length > 0">
+      <div v-for="(l, index) in my_ticket"
+          :key="index"
+          class="card_list">
+        <nuxt-link :to="'/collection/'+l.seminar_id" class="links">
+          <div>
+            <div>
+              <img
+                :src="l.seminar_url_cover"
+                aspect-ratio="1"
+                class="cover_img"/>
+            </div>
+            <div>
+              <div class="font_bold text_justify text_center">
+                {{ l.seminar_title }}
+              </div>
+              <div class="text_sub color_sub text_center mb15">
+                Dipublikasikan oleh {{ l.member_name }}
+              </div>
+              <div>
+                <v-icon>mdi-calendar-month</v-icon>
+                <span>{{ l.seminar_start_date }} - {{ l.seminar_end_date }}</span>
+              </div>
+              <div>
+                <v-icon>mdi-clock-outline</v-icon>
+                <span>{{ l.seminar_start_time }} - {{ l.seminar_end_time }} WIB</span>
+              </div>
+              <div>
+                <v-icon>mdi-map-marker</v-icon>
+                <span>{{ l.seminar_location_name }}</span><br>
+                <div class="address">
+                  {{ l.seminar_address }}, {{ l.seminar_subdistrict }}, {{ l.seminar_city }}, {{ l.seminar_province }}
+                </div>
+              </div>
+            </div>
+          </div>
+        </nuxt-link>
+      </div>
+    </div>
+
     <!-- no data -->
     <div v-if="!process && active === 1 && Object.keys(my_ticket).length === 0"
       class="card_list">
@@ -83,7 +123,7 @@
           :src="require('~/assets/image/Seminar_not_found.png')"
           aspect-ratio="1"
           class="not_found_img"/>
-        <p class="text_color">Maaf Anda Belum Memiliki Seminar</p>
+        <p>Maaf Anda Belum Memiliki Seminar</p>
       </div>
     </div>
 
@@ -94,7 +134,7 @@
           :src="require('~/assets/image/Seminar_not_found.png')"
           aspect-ratio="1"
           class="not_found_img"/>
-        <p class="text_color">Maaf Anda Belum Memiliki Seminar</p>
+        <p>Maaf Anda Belum Memiliki Seminar</p>
       </div>
     </div>
 

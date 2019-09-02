@@ -148,6 +148,7 @@
         fixed
         app>
         <v-list class="pa-1 color_label"
+          style="margin-left: 0px"
           v-if="check_token !== null">
           <v-list-item class="ml-2">
             <v-list-item-avatar>
@@ -220,6 +221,7 @@
         fixed
         app>
         <v-app-bar-nav-icon @click.stop="drawer = !drawer"/>
+        <v-icon v-if="showArrow">mdi-arrow-left</v-icon>
         <div class="text_center header_">
           <img
             :src="require('~/assets/logo/logo_go.png')"
@@ -291,7 +293,9 @@ export default {
       miniVariant: false,
       right: true,
       rightDrawer: false,
-      title: 'Vuetify.js'
+      title: 'Vuetify.js',
+      showArrow: false,
+      name: ''
     }
   },
   computed: {
@@ -306,6 +310,10 @@ export default {
     }
   },
   mounted () {
+    this.name = this.$route.name
+    // if (this.name === marketplace || history) {
+    //   this.showArrow = true
+    // }
     if (this.$store.state.auth.token !== null) {
       this.checkPayment()
     }

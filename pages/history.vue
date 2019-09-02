@@ -1,15 +1,16 @@
 <template>
   <div class="body_">
     <!-- loading -->
-    <v-layout
-      justify-center
-      align-center
-      v-if="process">
-      <v-progress-circular
-        indeterminate
-        color="#16A086"
-        class="loader_"/>
-    </v-layout>
+    <div class="centered_img">
+      <v-layout
+        justify-center
+        align-center
+        v-if="process">
+        <v-progress-circular
+          indeterminate
+          color="#16A086" />
+      </v-layout>
+    </div>
 
     <!-- list history -->
     <div v-if="!process && history_list.length > 0">
@@ -48,15 +49,19 @@
           </div>
           <hr class="hr_list">
         </div>
+
+        <div v-if="l.step === 4">
+          fffff
+        </div>
       </div>
     </div>
 
     <!-- no data -->
-     <div class="text_center" v-if="!process && history_list.length === 0">
+     <div class="text_center centered_img" v-if="!process && history_list.length === 0">
       <div>
         <img :src="require('~/assets/image/Seminar_not_found.png')"
           class="img_no_data">
-        <p class="font12 text_color">
+        <p class="font12">
           Maaf Anda Belum Memiliki Riwayat Pembelian
         </p>
       </div>

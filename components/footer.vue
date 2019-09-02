@@ -31,7 +31,7 @@
       fixed
       shift>
       <v-btn to="/marketplace">
-        <span>Beranda</span>
+        <span>Seminar</span>
         <v-icon class="icons">mdi-home</v-icon>
       </v-btn>
 

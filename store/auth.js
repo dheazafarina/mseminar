@@ -4,7 +4,8 @@ const state = () => ({
     user: null,
     token: null,
     registrations: {},
-    expired: {}
+    expired: {},
+    id: {}
   })
   
   const mutations = {
@@ -19,6 +20,10 @@ const state = () => ({
     },
     SET_EXPIRED (state, expired) {
       state.expired = expired
+    },
+    //
+    SET_ID(state, id) {
+      state.id = id || null
     }
   }
   
@@ -132,6 +137,61 @@ const state = () => ({
       })
       .then ((res) => {
         return res.json()
+      })
+    },
+    //
+    async POST_REGISTRASI({ commit }, { member_name, member_email, member_password, member_password_confirmation, member_mobile_phone_number }) {
+      return fetch(`${process.env.API_MEMBER}register`, {
+        method: 'POST',
+        headers: {
+          'X-Authorization': process.env.AUTH_PUBLIC,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          member_name,
+          member_email,
+          member_password,
+          member_password_confirmation,
+          member_mobile_phone_number,
+          device: 'web',
+          member_type: 'student',
+          input_from: 'public',
+          member_send_verification: 'phone'
+        })
+      })
+      .then((res) => {
+        return res.json()
+      })
+      .catch((err) => {
+        return err.response.data
+      })
+    },
+    async GET_PHONE_EXPIRED({ commit }) {
+      const { data } = await axios.get(`${process.env.API_MEMBER}resend-sms/` + this.state.auth.id.member_id, {
+        headers: {
+          'X-Authorization': `${process.env.AUTH_PUBLIC}`,
+          'Accept': 'application/json'
+        }
+      })
+      commit('SET_ID', data.result)
+      return data
+    }, 
+    async POST_RESEND_SMS({ commit }, { phone_number }) {
+      return fetch(`${process.env.API_MEMBER}resend-by-phone`, {
+        method: 'POST',
+        headers: {
+          'X-Authorization': process.env.AUTH_PUBLIC,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          phone_number: phone_number
+        })
+      })
+      .then((res) => {
+        return res.json()
+      })
+      .catch((err) => {
+        return err.response.data
       })
     }
   }

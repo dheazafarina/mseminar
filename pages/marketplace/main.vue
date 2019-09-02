@@ -1,15 +1,16 @@
 <template>
   <div class="body_">
     <!-- loading -->
-    <v-layout
-      justify-center
-      align-center
-      v-if="process">
-      <v-progress-circular
-        indeterminate
-        color="#16A086"
-        class="loader_"/>
-    </v-layout>
+    <div class="centered_img">
+      <v-layout
+        justify-center
+        align-center
+        v-if="process">
+        <v-progress-circular
+          indeterminate
+          color="#16A086" />
+      </v-layout>
+    </div>
 
     <!-- main -->
     <div v-if="!process && Object.keys(info_detail).length > 0">
@@ -199,6 +200,7 @@
     },
     computed: {
       info_detail () {
+        this.seminar_title = this.$store.state.product.marketplace.detail.seminar_title
         return this.$store.state.product.marketplace.detail
       },
       payment() {

@@ -1,6 +1,6 @@
 <template>
-  <v-app style="font-family: Lato,'Helvetica Neue',Arial,Helvetica,sans-serif;">
-    <div class="body_content">
+  <v-app style="font-family: Lato,'Helvetica Neue',Arial,Helvetica,sans-serif; background: #fff;">
+    <div class="body_content" style="background: #fff;">
       <header-menu />
         <nuxt class="body_content"
           style="margin-top: 70px; margin-bottom: 90px;"/>

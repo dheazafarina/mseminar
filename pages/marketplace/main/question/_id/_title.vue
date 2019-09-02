@@ -47,13 +47,19 @@
                         name="input-7-4" rows="3"></textarea>
                     </div>
                   </div>
+                  <div
+                    v-if="hasOwnProp(error, 'discussion') == true && 
+                          error.discussion.length > 0"
+                    class="_error_txt">
+                    {{error.discussion[0].message}}
+                  </div>
                   <div class="v-text-field__details">
                     <div class="v-messages theme--light"></div>
                   </div>
                   <div class="mt10">
                     <p class="text_send" @click="sendDiscuss">
-                    Komentari
-                  </p>
+                      Komentari
+                    </p>
                   </div>
                 </div>
               </div>
@@ -136,7 +142,11 @@
       return {
         process: false,
         discussion: '',
-        showLocked: false
+        showLocked: false,
+        error: {
+          discussion: [],
+          errorLength: false
+        }
       }
     },
     computed: {
@@ -156,6 +166,34 @@
       }
     },
     methods: {
+      hasOwnProp: function (a, b) {
+        return Object.prototype.hasOwnProperty.call(a, b);
+      },
+      validation () {
+        var error = {
+          discussion: [
+            { message: '' }
+          ]
+        }
+
+        error.errorLength = false
+
+        if (this.discussion.length < 1) {
+          error.discussion[0].message = 'Pertanyaan wajib diisi';
+          error.errorLength = true;
+        } else if (this.validationWhiteSpace(this.discussion)) {
+          error.discussion[0].message = 'Pertanyaan wajib diisi';
+          error.errorLength = true;
+        } else {
+          error.discussion = [];
+        }
+
+        return error;
+      },
+      validationWhiteSpace (spaces) {
+        var re = /^\s+$/;
+        return re.test(spaces);
+      },
       async fetchDiscuss () {
         this.process = true;
         await this.$store.dispatch('product/question/GET_QUESTION_LIST', {
@@ -164,14 +202,17 @@
         this.process = false;
       },
       async sendDiscuss () {
-        this.process = true;
-        await this.$store.dispatch('product/question/POST_QUESTION', {
-          seminar_comment_seminar_id : this.$route.params.id,
-          seminar_comment_desc : this.discussion
-        })
-        this.process = false;
-        this.fetchDiscuss();
-        this.discussion = '';
+        this.error = this.validation();        
+        if (this.error.errorLength == false) {
+          this.process = true;
+          await this.$store.dispatch('product/question/POST_QUESTION', {
+            seminar_comment_seminar_id : this.$route.params.id,
+            seminar_comment_desc : this.discussion
+          })
+          this.process = false;
+          this.fetchDiscuss();
+          this.discussion = '';
+        }
       }
     }
   }
