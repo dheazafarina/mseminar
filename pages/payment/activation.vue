@@ -154,7 +154,7 @@
 
 <script>  
   export default {
-    middleware: 'auth',
+    middleware: 'student',
     data () {
       return {
         callback: this.$route.query.cb,

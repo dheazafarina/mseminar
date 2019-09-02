@@ -16,14 +16,18 @@ const mutations = {
 }
 
 const actions = {
-  async GET_QUESTION_LIST ({ commit }, { seminar_id }) {
+  async GET_QUESTION_LIST({ commit }, { seminar_id, pagenum }) {
     const { data } = await axios.get(`${process.env.API}seminar-public/comment-public/${seminar_id}`, {
+      params: {
+        pagenum
+      },
       headers: {
         'X-Authorization': process.env.AUTH_PUBLIC,
         'Authorization': `Bearer ${this.state.auth.token}`
       }
     })
     commit('SET_QUESTION_LIST', data.result)
+    commit('SET_QUESTION_PAGINATION', data.pagination)
   },
   async POST_QUESTION ({ commit }, { seminar_comment_seminar_id, seminar_comment_desc }) {
     return fetch (`${process.env.API}seminar-public/comment-public/create-comment`, {

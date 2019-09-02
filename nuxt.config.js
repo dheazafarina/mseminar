@@ -41,7 +41,6 @@ module.exports = {
   */
   plugins: [
     '~plugins/vue-awesome-countdown.js',
-    '~plugins/vue-infinite-loading.js',
     '~plugins/vuetify.js',
     { src: '~plugins/nuxt-quill.js', ssr: false },
     { src: '~plugins/vee-validate.js', ssr: true }

@@ -42,14 +42,14 @@
                     v-if="saveveri == false" 
                     @click="sendComfirmation" 
                     style="width: 95%;" 
-                    round
+                    rounded
                     color="#16A086" dark>
                     <b>Verifikasi</b>
                   </v-btn>
                   <v-btn 
                     v-if="saveveri == true" 
                     style="width: 95%;" 
-                    round 
+                    rounded 
                     color="#16A086" 
                     dark 
                     loading>
@@ -86,6 +86,16 @@
               </div>
             </div>
           </v-flex>
+          <v-flex 
+            xs12 sm6 md6 order-md4 order-sm2
+            style="margin-top: -10px; text-align: right">
+            <div>
+              <!-- <img
+                :src="require('~/assets/login.png')"
+                aspect-ratio="1"
+                style="height: -webkit-fill-available; width: 100%;"/> -->
+            </div>
+          </v-flex>
         </v-layout>
       </div>
     </div>
@@ -96,7 +106,7 @@
   import axios from 'axios';
   const Cookie = process.client ? require('js-cookie') : undefined
   export default {
-    middleware: 'unauth',
+    middleware: 'public',
     data: () => ({
       username: '',
       password: '',
@@ -122,9 +132,9 @@
     }),
     mounted () {
       this.time()
-    //   if (this.$store.state.auth.id.date_time === undefined) {
-    //     window.location = "/verifikasi-kode-sms"
-    //   }
+      if (this.$store.state.auth.id.date_time === undefined) {
+        window.location = "/verifikasi-kode-sms"
+      }
       this.phonenumber = this.$store.state.auth.id.member_phone
     },
     computed: {

@@ -219,7 +219,7 @@
 <script>
   import axios from 'axios';
   export default {
-    middleware: 'unauth',
+    middleware: 'public',
     data() {
       return {
         e2: null,

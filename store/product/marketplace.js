@@ -20,11 +20,10 @@ const mutations = {
 }
 
 const actions = {
-  async GET_MARKET ({ commit }, { pagenum, limit, title, city, schedule, category }) {
+  async GET_MARKET ({ commit }, { pagenum, title, city, schedule, category }) {
     const { data } = await axios.get(`${process.env.API}seminar-public/search`, {
       params: {
         pagenum,
-        limit,
         title,
         city,
         schedule,
@@ -37,7 +36,6 @@ const actions = {
     })
     commit('SET_MARKET_LIST', data.result)
     commit('SET_MARKET_PAGINATION', data.pagination)
-    return data
   },
   async GET_MARKET_DETAIL ({ commit }, { seminar_id }) {
     const { data } = await axios.get(`${process.env.API}seminar-public/${seminar_id}`, {
@@ -48,12 +46,20 @@ const actions = {
     })
     commit('SET_MARKET_DETAIL', data.result)
   },
+  async GET_CHECK_SEMINAR({ commit }, { seminar_id }) {
+    const { data } = await axios.get(`${process.env.API}seminar-public/check-seminar/${seminar_id}`, {
+      headers: {
+        'X-Authorization': process.env.AUTH_PUBLIC,
+        'Authorization': `Bearer ${this.state.auth.token}`
+      }
+    })
+    return data
+  },
   //PUBLIC
-  async GET_MARKET_PUBLIC ({ commit }, { pagenum, limit, title, city, schedule, category }) {
+  async GET_MARKET_PUBLIC ({ commit }, { pagenum, title, city, schedule, category }) {
     const { data } = await axios.get(`${process.env.API}seminar-non-member/search`, {
       params: {
         pagenum,
-        limit,
         title,
         city,
         schedule,
@@ -69,7 +75,7 @@ const actions = {
   async GET_MARKET_DETAIL_PUBLIC ({ commit }, { seminar_id }) {
     const { data } = await axios.get(`${process.env.API}seminar-non-member/${seminar_id}`, {
       headers: {
-        'X-Authorization': process.env.AUTH_PUBLIC,
+        'X-Authorization': process.env.AUTH_PUBLIC
       }
     })
     commit('SET_MARKET_DETAIL', data.result)
