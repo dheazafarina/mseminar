@@ -496,10 +496,30 @@ a:-webkit-any-link {
   }
 }
 
+@media screen and (min-width: 500px) {
+  .width_img_code_qr {
+    width: 40%;
+  }
+  .lbl_ticket {
+    width: 60%;
+    margin-top: 5px !important;
+  }
+}
+
 @media screen and (min-width: 1264px) {
   .cover_img {
     width: 100%;
     object-fit: cover;
     height: 250px;
+  }
+  .width_img_code_qr {
+    width: 40%;
+  }
+  .lbl_ticket {
+    width: 50%;
+    margin-top: 5px !important;
+  }
+  .not_found_img {
+    width: 15% !important;
   }
 }

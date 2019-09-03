@@ -277,7 +277,9 @@ export default {
       modal: false,
       not_found: false,
       not_found_search: false,
-      picker: new Date().toISOString().substr(0, 10)
+      picker: new Date().toISOString().substr(0, 10),
+      data: '',
+      data_split: ''
     }
   },
   computed: {
@@ -304,7 +306,13 @@ export default {
     }
   },
   mounted () {
-    // this.process = true
+    this.data = this.$route.query.city
+    if (this.data !== undefined) {
+      this.data_split = this.data.split('-').join(' ')
+      this.sorting.city = this.data_split
+    } else {
+      this.sorting.city = ''
+    }
     this.checkToken()
   },
   methods: {
