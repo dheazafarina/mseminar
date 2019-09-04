@@ -50,15 +50,15 @@
       </div>
       <div
         class="_error text_center"
-        style="width: 262px; margin-top: 10px;"
+        style="margin-top: 10px;"
         v-if="error.errorLength == false && message.length > 0">
           {{message}}
         <span v-if="toRegistrasi == true">
           , silahkan melakukan 
           <nuxt-link to="/pendaftaran-siswa" style="color: #16A086">registrasi</nuxt-link>
-        </span>
+        </span><br>
         <span v-if="toVerifikasi == true">
-          , <nuxt-link to="/verifikasi-kode" style="color: #16A086">ke halaman kode</nuxt-link>
+          <nuxt-link to="/verifikasi-kode" style="color: #16A086">Ke halaman input kode</nuxt-link>
         </span>
       </div>
     </div>
