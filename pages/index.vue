@@ -4,7 +4,7 @@
       <p class="text_title_benner">
         Temukan seminar di kotamu
       </p>
-      <v-layout row wrap style="padding: 0px 25% 0px 15%;">
+      <v-layout row wrap class="search_box">
           <v-flex xs10 sm9 md9>
             <v-select
               v-model="e2"
@@ -42,7 +42,6 @@
         </p>
       </div>
       <div style="margin-top: 5%; text-align: center;">
-        <hr class="hr_-">
         <v-layout row wrap class="layout_wrap_">
           <v-flex xs12 sm3 md3 style="z-index: 1">
             <span>
@@ -52,7 +51,7 @@
                 class="width_img"/>
               <br>
               <!-- hidden-sm-and-down -->
-              <span style="text-align: center; color: rgb(255, 255, 255); font-size: 10px;">
+              <span class="text_step">
                 Cari seminar pilihan mu
               </span>
             </span>
@@ -64,7 +63,7 @@
                 aspect-ratio="1"
                 class=" width_img"/>
               <br>
-              <span style="text-align: center; color: rgb(255, 255, 255); font-size: 10px;">
+              <span class="text_step">
                 Lakukan pembelian tiket seminar
               </span>
             </span>
@@ -76,7 +75,7 @@
                 aspect-ratio="1"
                 class=" width_img"/>
               <br>
-              <span style="text-align: center; color: rgb(255, 255, 255); font-size: 10px;">
+              <span class="text_step">
                 Dapatkan e-tiket via email
               </span>
             </span>
@@ -88,7 +87,7 @@
                 aspect-ratio="1"
                 class=" width_img"/>
               <br>
-              <span style="text-align: center; color: rgb(255, 255, 255); font-size: 10px;">
+              <span class="text_step">
                 Hadiri seminar favoritmu
               </span>
             </span>
@@ -104,35 +103,31 @@
     <div class="body_">
       <v-layout row wrap>
         <v-flex xs12 sm6 md4 order-md1 order-sm2 v-for="(item, index) in itemcat" :key="index">
-          <v-card tile flat>
-            <a :href="`/marketplace?category=${item.link}`">
-              <v-card-text style="padding: 0px;">
-                <img
-                  :src="item.img"
-                  aspect-ratio="1"
-                  style="width: 100%;"/>
-              </v-card-text>
-              <p class="text_title_category">
-                {{item.name}}
-              </p>
-            </a>
+          <v-card tile flat @click="marketCategory(item.link)">
+            <v-card-text style="padding: 0px;">
+              <img
+                :src="item.img"
+                aspect-ratio="1"
+                style="width: 100%;"/>
+            </v-card-text>
+            <p class="text_title_category">
+              {{item.name}}
+            </p>
           </v-card>
         </v-flex>
       </v-layout>
       <v-layout row wrap>
         <v-flex xs12 sm6 md4 order-md1 order-sm2 v-for="(item, index) in itemcat2" :key="index">
-          <v-card tile flat>
-            <a :href="`/marketplace?category=${item.link}`">
-              <v-card-text style="padding: 0px;">
-                <img
-                  :src="item.img"
-                  aspect-ratio="1"
-                  style="width: 100%;"/>
-              </v-card-text>
-              <p class="text_title_category">
-                {{item.name}}
-              </p>
-            </a>
+          <v-card tile flat @click="marketCategory(item.link)">
+            <v-card-text style="padding: 0px;">
+              <img
+                :src="item.img"
+                aspect-ratio="1"
+                style="width: 100%;"/>
+            </v-card-text>
+            <p class="text_title_category">
+              {{item.name}}
+            </p>
           </v-card>
         </v-flex>
       </v-layout>
@@ -198,14 +193,14 @@
         <p class="text_android" style="font-weight: 100; margin-bottom: 60px;">
           Dapatkan seminar terlengkap di Gotraining.co.id.
         </p>
-        <div style="color: #fff; font-size: 18px">
+        <div style="color: #fff; font-size: 16px">
           Download aplikasinya sekarang
         </div>
         <a href="https://play.google.com/store/apps/details?id=ntci.co.id.gotraining">
           <img
             :src="require('~/assets/icon/playstore.png')"
             aspect-ratio="1"
-            style="margin-left: -18px; margin-top: -10px;"/>
+            style="margin-left: -18px; margin-top: -10px; width: 50%"/>
         </a>
         <img
           :src="require('~/assets/icon/android.png')"
@@ -354,7 +349,10 @@
         })
       },
       toMarket() {
-        window.location = `/marketplace?city=${this.e2.split(' ').join('-')}`
+        window.location = `/marketplace?city=${this.e2.split(' ').join('-')}&category=`
+      },
+      marketCategory(items) {
+        window.location = `/marketplace?category=${items}&city=`
       }
     },
     head () {
@@ -545,7 +543,7 @@
   }
   .text_android {
     color: #fff;
-    font-size: 27px;
+    font-size: 20px;
     font-weight: bold;
     width: 75%;
   }
@@ -628,7 +626,7 @@
   }
   .link_to {
     text-align: center;
-    margin-top: 1%;
+    margin-top: -20px;
     background-color: #27626ac2;
     padding: 8px;
     border-bottom: 0;

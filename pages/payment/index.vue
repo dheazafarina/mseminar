@@ -1,5 +1,5 @@
 <template>
-  <div class="body_">
+  <div class="body_ payment_form">
     <!-- loading -->
     <div class="centered_img">
       <v-layout
@@ -245,7 +245,7 @@
       </div>
 
       <!-- no data -->
-      <div v-if="payment_list.length < 0">
+      <div v-if="payment_list.length === 0">
         <div class="text_center">
           <img :src="require('~/assets/image/Seminar_not_found.png')"
             class="img_no_data">
@@ -265,7 +265,8 @@
       return {
         process: false,
         dialog: false,
-        show: false
+        show: false,
+        dataPayment: {}
       }
     },
     computed: {
@@ -273,6 +274,14 @@
         return this.$store.state.auth.user
       },
       payment() {
+        this.dataPayment = this.$store.state.payment.status
+        if (this.dataPayment.scalar === false ||
+            this.dataPayment.member_status === "not_verified" ||
+            this.dataPayment.member_status !== "approved") {
+          this.dialog = true
+        } else {
+          this.dialog = false
+        }
         return this.$store.state.payment.status
       },
       payment_profile() {

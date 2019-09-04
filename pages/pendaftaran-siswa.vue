@@ -1,259 +1,237 @@
 <template>
-  <main style="padding: 0px">
-    <div style="margin: 0% 0%;">
-      <div>
-        <v-layout row wrap>
-          <v-flex 
-            xs12 sm6 md6 order-md3 order-sm1
-            class="text__"
-            style="background: #fff;">
+  <div>
+    <!-- <div 
+      v-if="load == false" 
+      class="text_center">
+      <v-progress-circular
+        :size="50"
+        color="primary"
+        indeterminate
+      ></v-progress-circular>
+    </div> -->
+    <div v-if="load == true" class="login_reg">
+      <span>
+        <b  style="line-height: 1.25; color: #16A086; font-size: 27px;"> DAFTAR SISWA SEMINAR <br> GOTRAINING </b>
+        <div style="padding-right: 20%;">
+          <div 
+            class="v-input v-text-field"
+            style="border-bottom: 0.5px solid #16A086; margin-top: 10%; ">
             <div 
-              v-if="load == false" 
-              class="text-xs-center" 
-              style="height: inherit; padding: 16rem;">
-              <v-progress-circular
-                :size="50"
-                color="primary"
-                indeterminate
-              ></v-progress-circular>
+              class="v-input__prepend-outer"
+              style="margin-right: 5px; margin-top: 3px">
+              <div class="v-input__icon v-input__icon--prepend">
+                <img
+                  :src="require('~/assets/icon/user.png')"
+                  aspect-ratio="1"
+                  style="width: 17px"/>
+              </div>
             </div>
-            <div v-if="load == true" style="padding-top: 10%; padding-right: 20%; padding-left: 15%; padding-bottom: 5%">
-              <span>
-                <b  style="line-height: 1.25; color: #16A086; font-size: 30px;"> DAFTAR SISWA SEMINAR <br> GOTRAINING </b>
-                <div style="padding-right: 20%;">
-                  <div 
-                    class="v-input v-text-field"
-                    style="border-bottom: 0.5px solid #16A086; margin-top: 10%; ">
-                    <div 
-                      class="v-input__prepend-outer"
-                      style="margin-right: 5px; margin-top: 3px">
-                      <div class="v-input__icon v-input__icon--prepend">
-                        <img
-                          :src="require('~/assets/icon/user.png')"
-                          aspect-ratio="1"
-                          style="width: 17px"/>
-                      </div>
-                    </div>
-                    <div class="v-input__control">
-                      <div>
-                        <div class="v-text-field__slot">
-                          <input style="color: #16A086; font: -webkit-control;" v-model="name" type="text" placeholder="Nama">
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div
-                    v-if="hasOwnProp(error, 'name') == true && 
-                                      error.name.length > 0"
-                    style="margin-top: 2%; color:red;">
-                    {{error.name[0].message}}
-                  </div>
-                  <div 
-                    class="v-input v-text-field"
-                    style="border-bottom: 0.5px solid #16A086; margin-top: 8%; ">
-                    <div 
-                      class="v-input__prepend-outer"
-                      style="margin-right: 5px; margin-top: 3px">
-                      <div class="v-input__icon v-input__icon--prepend">
-                        <img
-                          :src="require('~/assets/icon/Email_login.svg')"
-                          aspect-ratio="1"
-                          style="width: 22px"/>
-                      </div>
-                    </div>
-                    <div class="v-input__control">
-                      <div>
-                        <div class="v-text-field__slot">
-                          <input style="color: #16A086; font: -webkit-control;" v-model="username" type="text" placeholder="E-mail">
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div
-                    v-if="hasOwnProp(error, 'username') == true && 
-                                      error.username.length > 0"
-                    style="margin-top: 2%; color:red;">
-                    {{error.username[0].message}}
-                  </div>
-                  <div
-                    v-if="message_email.length > 0"
-                    style="margin-top: 2%; color:red;">
-                    {{ message_email }}
-                  </div>
-                  <div 
-                    class="v-input v-text-field"
-                    style="border-bottom: 0.5px solid #16A086; margin-top: 8%">
-                    <div 
-                      class="v-input__prepend-outer"
-                      style="margin-right: 5px; margin-top: 2px;">
-                      <div class="v-input__icon v-input__icon--prepend">
-                        <img
-                          :src="require('~/assets/icon/Password.svg')"
-                          aspect-ratio="1"
-                          style="width: 20px"/>
-                      </div>
-                    </div>
-                    <div class="v-input__control">
-                      <div>
-                        <div class="v-text-field__slot">
-                          <input style="color: #16A086; font: -webkit-control;" v-model="password" type="password" placeholder="Password">
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div
-                    v-if="hasOwnProp(error, 'password') == true && 
-                                      error.password.length > 0"
-                    style="margin-top: 2%; color:red;">
-                    {{error.password[0].message}}
-                  </div>
-                  <div 
-                    class="v-input v-text-field"
-                    style="border-bottom: 0.5px solid #16A086; margin-top: 8%">
-                    <div 
-                      class="v-input__prepend-outer"
-                      style="margin-right: 5px; margin-top: 2px;">
-                      <div class="v-input__icon v-input__icon--prepend">
-                        <img
-                          :src="require('~/assets/icon/Password.svg')"
-                          aspect-ratio="1"
-                          style="width: 20px"/>
-                      </div>
-                    </div>
-                    <div class="v-input__control">
-                      <div>
-                        <div class="v-text-field__slot">
-                          <input style="color: #16A086; font: -webkit-control;" v-model="confirm_pass" type="password" placeholder="Konfimasi Password">
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div
-                    v-if="hasOwnProp(error, 'confirm_pass') == true && 
-                                      error.confirm_pass.length > 0"
-                    style="margin-top: 2%; color:red;">
-                    {{error.confirm_pass[0].message}}
-                  </div>
-                  <div 
-                    class="v-input v-text-field"
-                    style="border-bottom: 0.5px solid #16A086; margin-top: 8%">
-                    <div 
-                      class="v-input__prepend-outer"
-                      style="margin-right: 5px; margin-top: 2px;">
-                      <div class="v-input__icon v-input__icon--prepend">
-                        <img
-                          :src="require('~/assets/icon/phone-call.png')"
-                          aspect-ratio="1"
-                          style="width: 15px"/>
-                      </div>
-                    </div>
-                    <div class="v-input__control">
-                      <div>
-                        <div class="v-text-field__slot">
-                          <input style="color: #16A086; font: -webkit-control;" v-model="phone" type="number" placeholder="Nomor Telepon">
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div
-                    v-if="hasOwnProp(error, 'phone') == true && 
-                                      error.phone.length > 0"
-                    style="margin-top: 2%; color:red;">
-                    {{error.phone[0].message}}
-                  </div>
-                  <div
-                    v-if="message_phone.length > 0"
-                    style="margin-top: 2%; color:red;">
-                    {{ message_phone }}
-                  </div>
-                  <div>
-                    <v-layout row wrap style="margin-top: 5%; cursor: pointer;">
-                      <v-flex 
-                        xs12 sm1 md1>
-                        <v-checkbox
-                          v-model="checkbox"
-                          color="#16A086"
-                          style="margin-top: 0px; padding-top: 0px;"
-                        ></v-checkbox>
-                      </v-flex>
-                      <v-flex 
-                        @click="checkbox = true"
-                        v-if="checkbox == false"
-                        xs12 sm11 md11>
-                        Dengan memberi tanda centang, maka anda telah menyetujui Syarat, Ketentuan dan Kebijakan Privasi Gotraining.
-                      </v-flex>
-                      <v-flex 
-                        v-if="checkbox == true"
-                        @click="checkbox = false"
-                        xs12 sm11 md11>
-                        Dengan memberi tanda centang, maka anda telah menyetujui Syarat, Ketentuan dan Kebijakan Privasi Gotraining.
-                      </v-flex>
-                    </v-layout>
-                  </div>
-                  <div class="forget">
-                    <!-- Lupa Password -->
-                  </div>
-                  <!-- <div 
-                    v-if="messages.length > 0 && error.username.length == 0"
-                    class="el-card is-always-shadow"
-                    style="box-shadow: none; background: antiquewhite; margin-bottom: 2%; margin-top: 7%; border: 1px solid red;">
-                    <div>
-                      <div style="padding-top: 10px; padding-bottom: 10px;">
-                        <div>
-                          <div style="color: red; text-align: center;">
-                            {{ messages }}
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div> -->
-                  <div style="margin-top: 5%" v-if="checkbox == true">
-                    <div class="text-xs-left">
-                      <v-btn v-if="savereg == false" @click="save" style="width: 95%;" round color="#16A086" dark><b>Registrasi</b></v-btn>
-                      <v-btn v-if="savereg == true" style="width: 95%;" round color="#16A086" dark loading><b>Login</b></v-btn>
-                    </div>
-                  </div>
-                  <div style="margin-top: 5%" v-if="checkbox == false">
-                    <div class="text-xs-left">
-                      <v-btn disabled style="width: 95%;" round color="#16A086"><b>Registrasi</b></v-btn>
-                    </div>
-                  </div>
-                  <div 
-                    v-if="message.length > 0">
-                    <div>
-                      <div style="padding-top: 5px; padding-bottom: 10px;">
-                        <div>
-                          <div style="color: red; text-align: center;">
-                            {{ message }}
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div style="margin-top: 15px;">
-                    Sudah punya akun ? <nuxt-link to="/masuk-seminar" style="color: #16A086;">login</nuxt-link>
-                  </div>
-                  <div style="margin-top: 5px;">
-                    Jika Anda belum terverifikasi <nuxt-link to="/verifikasi-kode" style="color: #16A086;">Silahkan Verifikasi</nuxt-link>
+            <div class="v-input__control">
+              <div>
+                <div class="v-text-field__slot">
+                  <input style="color: #16A086; font: -webkit-control;" v-model="name" type="text" placeholder="Nama">
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            v-if="hasOwnProp(error, 'name') == true && 
+                              error.name.length > 0"
+            style="margin-top: 2%; color:red;">
+            {{error.name[0].message}}
+          </div>
+          <div 
+            class="v-input v-text-field"
+            style="border-bottom: 0.5px solid #16A086; margin-top: 8%; ">
+            <div 
+              class="v-input__prepend-outer"
+              style="margin-right: 5px; margin-top: 3px">
+              <div class="v-input__icon v-input__icon--prepend">
+                <img
+                  :src="require('~/assets/icon/Email_login.svg')"
+                  aspect-ratio="1"
+                  style="width: 22px"/>
+              </div>
+            </div>
+            <div class="v-input__control">
+              <div>
+                <div class="v-text-field__slot">
+                  <input style="color: #16A086; font: -webkit-control;" v-model="username" type="text" placeholder="E-mail">
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            v-if="hasOwnProp(error, 'username') == true && 
+                              error.username.length > 0"
+            style="margin-top: 2%; color:red;">
+            {{error.username[0].message}}
+          </div>
+          <div
+            v-if="message_email.length > 0"
+            style="margin-top: 2%; color:red;">
+            {{ message_email }}
+          </div>
+          <div 
+            class="v-input v-text-field"
+            style="border-bottom: 0.5px solid #16A086; margin-top: 8%">
+            <div 
+              class="v-input__prepend-outer"
+              style="margin-right: 5px; margin-top: 2px;">
+              <div class="v-input__icon v-input__icon--prepend">
+                <img
+                  :src="require('~/assets/icon/Password.svg')"
+                  aspect-ratio="1"
+                  style="width: 20px"/>
+              </div>
+            </div>
+            <div class="v-input__control">
+              <div>
+                <div class="v-text-field__slot">
+                  <input style="color: #16A086; font: -webkit-control;" v-model="password" type="password" placeholder="Password">
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            v-if="hasOwnProp(error, 'password') == true && 
+                              error.password.length > 0"
+            style="margin-top: 2%; color:red;">
+            {{error.password[0].message}}
+          </div>
+          <div 
+            class="v-input v-text-field"
+            style="border-bottom: 0.5px solid #16A086; margin-top: 8%">
+            <div 
+              class="v-input__prepend-outer"
+              style="margin-right: 5px; margin-top: 2px;">
+              <div class="v-input__icon v-input__icon--prepend">
+                <img
+                  :src="require('~/assets/icon/Password.svg')"
+                  aspect-ratio="1"
+                  style="width: 20px"/>
+              </div>
+            </div>
+            <div class="v-input__control">
+              <div>
+                <div class="v-text-field__slot">
+                  <input style="color: #16A086; font: -webkit-control;" v-model="confirm_pass" type="password" placeholder="Konfimasi Password">
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            v-if="hasOwnProp(error, 'confirm_pass') == true && 
+                              error.confirm_pass.length > 0"
+            style="margin-top: 2%; color:red;">
+            {{error.confirm_pass[0].message}}
+          </div>
+          <div 
+            class="v-input v-text-field"
+            style="border-bottom: 0.5px solid #16A086; margin-top: 8%">
+            <div 
+              class="v-input__prepend-outer"
+              style="margin-right: 5px; margin-top: 2px;">
+              <div class="v-input__icon v-input__icon--prepend">
+                <img
+                  :src="require('~/assets/icon/phone-call.png')"
+                  aspect-ratio="1"
+                  style="width: 15px"/>
+              </div>
+            </div>
+            <div class="v-input__control">
+              <div>
+                <div class="v-text-field__slot">
+                  <input style="color: #16A086; font: -webkit-control;" v-model="phone" type="number" placeholder="Nomor Telepon">
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            v-if="hasOwnProp(error, 'phone') == true && 
+                              error.phone.length > 0"
+            style="margin-top: 2%; color:red;">
+            {{error.phone[0].message}}
+          </div>
+          <div
+            v-if="message_phone.length > 0"
+            style="margin-top: 2%; color:red;">
+            {{ message_phone }}
+          </div>
+          <div>
+            <v-layout row wrap style="margin-top: 5%; cursor: pointer;">
+              <v-flex 
+                xs12 sm1 md1>
+                <v-checkbox
+                  v-model="checkbox"
+                  color="#16A086"
+                  style="margin-top: 0px; padding-top: 0px;"
+                ></v-checkbox>
+              </v-flex>
+              <v-flex 
+                @click="checkbox = true"
+                v-if="checkbox == false"
+                xs12 sm11 md11>
+                Dengan memberi tanda centang, maka anda telah menyetujui Syarat, Ketentuan dan Kebijakan Privasi Gotraining.
+              </v-flex>
+              <v-flex 
+                v-if="checkbox == true"
+                @click="checkbox = false"
+                xs12 sm11 md11>
+                Dengan memberi tanda centang, maka anda telah menyetujui Syarat, Ketentuan dan Kebijakan Privasi Gotraining.
+              </v-flex>
+            </v-layout>
+          </div>
+          <div class="forget">
+            <!-- Lupa Password -->
+          </div>
+          <!-- <div 
+            v-if="messages.length > 0 && error.username.length == 0"
+            class="el-card is-always-shadow"
+            style="box-shadow: none; background: antiquewhite; margin-bottom: 2%; margin-top: 7%; border: 1px solid red;">
+            <div>
+              <div style="padding-top: 10px; padding-bottom: 10px;">
+                <div>
+                  <div style="color: red; text-align: center;">
+                    {{ messages }}
                   </div>
                 </div>
-              </span>
+              </div>
             </div>
-          </v-flex>
-          <v-flex 
-            xs12 sm6 md6 order-md4 order-sm2
-            style="margin-top: -10px; text-align: right">
+          </div> -->
+          <div style="margin-top: 5%" v-if="checkbox == true">
+            <div class="text-xs-left">
+              <v-btn v-if="savereg == false" @click="save" style="width: 95%;" rounded color="#16A086" dark><b>Registrasi</b></v-btn>
+              <v-btn v-if="savereg == true" style="width: 95%;" rounded color="#16A086" dark loading><b>Login</b></v-btn>
+            </div>
+          </div>
+          <div style="margin-top: 5%" v-if="checkbox == false">
+            <div class="text-xs-left">
+              <v-btn disabled style="width: 95%;" rounded color="#16A086"><b>Registrasi</b></v-btn>
+            </div>
+          </div>
+          <div 
+            v-if="message.length > 0">
             <div>
-              <!-- <img
-                :src="require('~/assets/login.png')"
-                aspect-ratio="1"
-                style="height: fit-content; width: 100%;"/> -->
+              <div style="padding-top: 5px; padding-bottom: 10px;">
+                <div>
+                  <div style="color: red; text-align: center;">
+                    {{ message }}
+                  </div>
+                </div>
+              </div>
             </div>
-          </v-flex>
-        </v-layout>
-      </div>
+          </div>
+          <div style="margin-top: 15px;">
+            Sudah punya akun ? <nuxt-link to="/masuk-seminar" style="color: #16A086;">login</nuxt-link>
+          </div>
+          <div style="margin-top: 5px;">
+            Jika Anda belum terverifikasi <nuxt-link to="/verifikasi-kode" style="color: #16A086;">Silahkan Verifikasi</nuxt-link>
+          </div>
+        </div>
+      </span>
     </div>
-  </main>
+  </div>
 </template>
 
 <script>

@@ -204,13 +204,19 @@
         return this.$store.state.product.marketplace.detail
       },
       payment() {
-        this.dataPayment = this.$store.state.payment.status
-        if (this.dataPayment.scalar === false) {
-          this.dialog = true
+        if (this.$store.state.auth.token !== null) {
+          this.dataPayment = this.$store.state.payment.status
+          if (this.dataPayment.scalar === false ||
+              this.dataPayment.member_status === "not_verified" ||
+              this.dataPayment.member_status !== "approved") {
+            this.dialog = true
+          } else {
+            this.dialog = false
+          }
+          return this.$store.state.payment.status
         } else {
-          this.dialog = false
+          return this.$store.state.payment.status
         }
-        return this.$store.state.payment.status
       }
     },
     mounted() {
@@ -243,7 +249,7 @@
         return Object.prototype.hasOwnProperty.call(value, 'scalar')
       },
       async buySeminar() {
-        window.location = `/purchase/${this.$route.params.id}?seminar=${this.seminar_title}`
+        window.location = `/purchase/${this.$store.state.product.marketplace.detail.seminar_ticket.seminar_ticket_id}?seminar=${this.seminar_title}`
       },
       async activation () {
         window.location = `/payment/activation?cb=${window.location.href}`

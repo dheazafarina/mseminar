@@ -13,7 +13,8 @@
     </div>
 
     <!-- list history -->
-    <div v-if="!process && history_list.length > 0">
+    <div v-if="!process && history_list.length > 0"
+      class="cursor">
       <div v-for="(l, index) in history_list"
           :key="index">
         <div v-if="l.step !== 4"
@@ -48,10 +49,6 @@
             </div>
           </div>
           <hr class="hr_list">
-        </div>
-
-        <div v-if="l.step === 4">
-          fffff
         </div>
       </div>
     </div>
@@ -95,7 +92,7 @@ export default {
       this.process = true;
       await this.$store.dispatch('history/GET_HISTORY', {
         pagenum: pagenum,
-        // limit: 10
+        limit: 10
       })
       this.process = false;
     },

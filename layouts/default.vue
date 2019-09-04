@@ -1,9 +1,8 @@
 <template>
   <v-app style="font-family: Lato,'Helvetica Neue',Arial,Helvetica,sans-serif; background: #fff;">
-    <div class="body_content" style="background: #fff;">
+    <div class="body_color body_content">
       <header-menu />
-        <nuxt class="body_content"
-          style="margin-top: 70px; margin-bottom: 90px;"/>
+        <nuxt class="body_color"/>
       <footer-menu />
     </div>
   </v-app>
@@ -21,10 +20,17 @@ export default {
 </script>
 
 <style>
-@media screen and (min-width: 1264px) {
+@media screen and (min-width: 320px) {
   .body_content {
-    margin-left: 100px;
-    margin-right: 100px;
+    padding: 15% 0% 18% 0%;
+  }
+}
+@media screen and (min-width: 700px) {
+  .body_color {
+    background: #fff;
+  }
+  .body_content {
+    padding: 5% 20% 5% 20%;
   }
 }
 

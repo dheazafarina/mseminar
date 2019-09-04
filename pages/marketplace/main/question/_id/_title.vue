@@ -37,7 +37,7 @@
           <v-flex xs10 sm6 md10>
             <span class="triangle"></span>
             <div class="ml-textarea">
-              <div class="v-input v-textarea v-text-field v-text-field--single-line v-text-field--solo v-text-field--enclosed theme--light">
+              <div class="txt_area v-input v-textarea v-text-field v-text-field--single-line v-text-field--solo v-text-field--enclosed theme--light">
                 <div class="v-input__control border_text">
                   <div class="v-input__slot" style="box-shadow: none;">
                     <div class="v-text-field__slot">

@@ -1,105 +1,92 @@
 <template>
-  <main style="padding: 0px">
-    <div style="margin: 0% 0%;">
-      <div>
-        <v-layout row wrap>
-          <v-flex 
-            xs12 sm6 md6 order-md3 order-sm1
-            class="text__"
-            style="background: #fff;">
-            <div style="padding-top: 10%; padding-right: 20%; padding-left: 15%; padding-bottom: 5%">
-              <div style="color: #16A086; text-align: center;">
-                <p style="line-height: 1.25; color: #16A086; font-size: 30px; font-weight: bold;">
-                  Pendaftaran Seminar Berhasil
-                </p>
-                <p style="font-weight: bold; padding:0% 15%;">
-                  Kami telah mengirimkan kode verifikasi melalui SMS ke nomor {{phonenumber}}
-                </p>
-                <div style="padding:0% 15%;">
-                  Masukkan kode tersebut untuk melengkapi tahap pendaftaran
-                </div>
-              </div>
-              <div style="text-align: center; margin-top: 70px;">
-                <input v-model="code_number" class="input_kode_veri" maxlength='5'/>
-                <div
-                  class="error_message"
-                    style="width: 250px; margin-left: auto; margin-right: auto;     margin-top: 10px;"
-                  v-if="hasOwnProp(error, 'code_number') == true &&  error.code_number.length > 0">
-                  {{error.code_number[0].message}}
-                </div>
-                <div
-                  class="error_message"
-                    style="width: 250px; margin-left: auto; margin-right: auto; margin-top: 10px;"
-                  v-if="error.errorLength == false && message.length > 0">
-                  {{message}}
-                </div>
-              </div>
-              <div style="margin-top: 5%">
-                <div 
-                  class="text-xs-left" 
-                  style="padding: 0% 12%;">
-                  <v-btn 
-                    v-if="saveveri == false" 
-                    @click="sendComfirmation" 
-                    style="width: 95%;" 
-                    rounded
-                    color="#16A086" dark>
-                    <b>Verifikasi</b>
-                  </v-btn>
-                  <v-btn 
-                    v-if="saveveri == true" 
-                    style="width: 95%;" 
-                    rounded 
-                    color="#16A086" 
-                    dark 
-                    loading>
-                    <b>Verifikasi</b>
-                  </v-btn>
-                </div>
-              </div>
-              <div style="text-align: center;  padding-top: 12px;">
-                Belum punya kode verifikasi? <br>
-                <vac
-                  ref="sendSMSOtp"
-                  :autoStart="false"
-                  :end-time="expired">
-                  <span
-                    slot="before"
-                    style="color: #3eb0d2 !important; cursor: pointer;">
-                    Kirim Kode Verifikasi
-                  </span>
-                  <span
-                    slot="process"
-                    slot-scope="{ state, timeObj }">
-                    Kirim ulang dalam
-                    <b>
-                      {{ `${timeObj.m}:${timeObj.s}` }}
-                    </b>
-                  </span>
-                  <span style="cursor: pointer; color: #16A086"
-                    slot="finish"
-                    v-if="send_code == false"
-                    @click="fetchExpired">
-                    Kirim ulang Kode Verifikasi
-                  </span>
-                </vac>
-              </div>
-            </div>
-          </v-flex>
-          <v-flex 
-            xs12 sm6 md6 order-md4 order-sm2
-            style="margin-top: -10px; text-align: right">
-            <div>
-              <!-- <img
-                :src="require('~/assets/login.png')"
-                aspect-ratio="1"
-                style="height: -webkit-fill-available; width: 100%;"/> -->
-            </div>
-          </v-flex>
-        </v-layout>
+  <div class="body_">
+    <div style="margin-top: 100px;">
+      <div class="text_center">
+        <p class="text_color font_bold"
+          style="font-size: 21px">
+          Pendaftaran Seminar Berhasil
+        </p>
+        <p class="text_color m30">
+          Kami telah mengirimkan kode verifikasi melalui SMS ke nomor <b>{{phonenumber}}</b>
+        </p>
+        <p class="text_color m30 mt-auto">
+          Masukkan kode tersebut untuk melengkapi tahap pendaftaran
+        </p>
+      </div>
+
+      <div class="text_center"
+        style="margin-top: 30px">
+        <input
+          id="partitioned"
+          class="text_center"
+          name="verfication code" 
+          type="text" 
+          maxlength="5"
+          v-model="code_number"
+          v-validate="'required|min:5|max:5'"/>
+      </div>
+
+      <div class="text_center">
+        <v-btn
+          class="btn_verif"
+          v-if="saveveri == false" 
+          @click="sendConfirmation" 
+          rounded small
+          color="#16A086" dark>
+          <b>Verifikasi</b>
+        </v-btn>
+        <v-btn
+          class="btn_verif"
+          v-if="saveveri == true"
+          rounded small
+          color="#16A086" 
+          dark loading>
+          <b>Verifikasi</b>
+        </v-btn>
+      </div>
+
+      <div
+        class="_error text_center"
+        style="width: 250px; margin-left: auto; margin-right: auto;margin-top: 10px;"
+        v-if="hasOwnProp(error, 'code_number') == true &&  error.code_number.length > 0">
+        {{error.code_number[0].message}}
+      </div>
+      <div
+        class="_error text_center"
+          style="width: 250px; margin-left: auto; margin-right: auto; margin-top: 10px;"
+        v-if="error.errorLength == false && message.length > 0">
+        {{message}}
+      </div>
+
+      <div class="text_center" style="padding-top: 30px;">
+        Belum punya kode verifikasi? <br>
+        <vac
+          ref="sendSMSOtp"
+          :autoStart="false"
+          :end-time="expired">
+          <span
+            slot="before"
+            style="color: #3eb0d2 !important; cursor: pointer;">
+            Kirim Kode Verifikasi
+          </span>
+          <span
+            slot="process"
+            slot-scope="{ state, timeObj }">
+            Kirim ulang dalam
+            <b>
+              {{ `${timeObj.m}:${timeObj.s}` }}
+            </b>
+          </span>
+          <span style="cursor: pointer; color: #16A086"
+            slot="finish"
+            v-if="send_code == false"
+            @click="fetchExpired">
+            Kirim ulang kode verifikasi
+          </span>
+        </vac>
       </div>
     </div>
-  </main>
+  </div>
 </template>
 
 <script>
@@ -159,7 +146,6 @@
         await this.$store.dispatch('auth/GET_PHONE_EXPIRED')
         .then ((res) => {
           if (res.status_code == 204) {
-            // this.message = 'Nomor Belum Terdaftar Silahkan Melaukan Regristrasi'
           } else if (res.status_code == 200) {
             Cookie.set('id', res.result)
             const voc = this.$refs.sendSMSOtp
@@ -180,7 +166,7 @@
           }
         })
       },
-      async sendComfirmation () {
+      async sendConfirmation () {
         var self = this
         this.error = this.validationCode();
         if (this.error.errorLength == false) {
@@ -190,7 +176,7 @@
         })
         .then(res => {
           if (res.status_code == 201) {
-            window.location = "/komfirmasi-pendaftaran-siswa"
+            window.location = "/konfirmasi-pendaftaran-siswa"
             this.clear();
             Cookie.remove('id');
             this.saveveri = false;
@@ -205,36 +191,6 @@
             this.saveveri = false
           }
         })
-        // axios.post(`${process.env.API_MEMBER}confirmation-sms`, {
-        //     member_hash : this.code_number
-        //   },
-        //   {
-        //     headers: {
-        //       'X-Authorization': `${process.env.AUTH_PUBLIC}`
-        //     }
-        //   }
-        // )
-        // .then(res => {
-        //   if (res.status == 201) {
-        //     window.location = "/komfirmasi-pendaftaran-siswa"
-        //     this.clear();
-        //     Cookie.remove('id');
-        //     this.saveveri = false;
-        //   } else {
-        //     this.saveveri = false;
-        //     this.message = res.data.message
-        //   }
-        //   this.saveveri = false;
-        // })
-        // .catch(error => {
-        //   this.saveveri = false
-        //   if (error.response.data.status_code == 404) {
-        //     this.message = error.response.data.message
-        //   }
-        //   if (error.response.data.status_code == 409) {
-        //     this.message = error.response.data.message
-        //   }
-        // })
         } else {
           this.saveveri = false
         }
@@ -290,6 +246,17 @@
 </script>
 
 <style>
+  .btn_verif {
+    width: 165px;
+    margin-top: 10px;
+  }
+  #partitioned {
+    letter-spacing: 12.5px;
+    border-bottom: 2px solid #000;
+    font-size: 16px;
+    font-weight: bold;
+    width: 140px
+  }
   ::-webkit-input-placeholder { /* Chrome */
     color: #16A086;
   }
@@ -303,41 +270,5 @@
   :-moz-placeholder { /* Firefox 4 - 18 */
     color: #16A086;
     opacity: 1;
-  }
-  .forget {
-    margin-top: 5%;
-    text-align: center;
-    color: #16A086;
-  }
-  .checkbox_ {
-    height: 19px;
-    width: 19px;
-    background-color: #fff;
-  }
-  .input_kode_veri {
-    border: none;
-    width: 141px;
-    background: 
-      repeating-linear-gradient(90deg, 
-          dimgrey 0, 
-          dimgrey 1ch, 
-          transparent 0, 
-          transparent 1.5ch) 
-        0 100%/100% 2px no-repeat;
-    color: dimgrey;
-    font: 4ch consolas, monospace;
-    letter-spacing: .5ch;
-  }
-  .input_kode_veri:focus {
-    outline: none;
-    color: #16A086;
-    background: repeating-linear-gradient(90deg, #16A086 0, #16A086 1ch, transparent 0, transparent 1.5ch) 0 100%/100% 2px no-repeat;
-  }
-  .error_message {
-    font-size: 13px;
-    color: red;
-    margin-top: -10px;
-    margin-bottom: 5px;
-    font-family: Lato;
   }
 </style>

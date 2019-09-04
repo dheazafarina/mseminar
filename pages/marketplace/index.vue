@@ -1,6 +1,7 @@
 <template>
 	<div class="body_">
-    <div v-if="page === 'filter'">
+    <div v-if="page === 'filter'"
+      class="padding_filter_">
       <!-- <div style="font-size: 14px; margin-top: 10px">
         Jenis Seminar
       </div>
@@ -101,7 +102,7 @@
           @keyup="search" 
           @keydown="search">
       </div>
-      <div class="txt_filter">
+      <div class="txt_filter cursor">
         <span @click="changePage('filter')">Filter
         <v-icon class="icon_filter">mdi-filter-variant</v-icon>
         </span>
@@ -126,7 +127,7 @@
           :key="index"
           class="card_list">
           <nuxt-link
-            :to="'/marketplace/main/info/'+`${l.seminar_ticket_id}`+'/'+l.seminar_title.split(' ').join('-')"
+            :to="'/marketplace/main/info/'+`${l.seminar_id}`+'/'+l.seminar_title.split(' ').join('-')"
             class="links">
             <div>
               <img
@@ -278,7 +279,9 @@ export default {
       not_found: false,
       not_found_search: false,
       picker: new Date().toISOString().substr(0, 10),
-      data: '',
+      data: {},
+      data_category: '',
+      data_city: '',
       data_split: ''
     }
   },
@@ -306,12 +309,18 @@ export default {
     }
   },
   mounted () {
-    this.data = this.$route.query.city
-    if (this.data !== undefined) {
-      this.data_split = this.data.split('-').join(' ')
-      this.sorting.city = this.data_split
-    } else {
+    this.process = true
+    this.data = this.$route.query
+    if (Object.keys(this.data).length == 0) {
       this.sorting.city = ''
+      this.sorting.category_id = ''
+    } else {
+      if (this.data.category.length == 0 && this.data.city.length !== 0) {
+        this.data_split = this.data.city.split('-').join(' ')
+        this.sorting.city = this.data_split
+      } else if (this.data.category.length !== 0 && this.data.city.length == 0) {
+        this.sorting.category_id = this.data.category
+      }
     }
     this.checkToken()
   },
@@ -481,4 +490,14 @@ export default {
 .v-list {
   margin-left: 10px;
 }
+@media screen and (min-width: 768px) {
+  .v-dialog {
+    margin: 37% !important;
+  }
+}
+/* @media screen and (min-width: 1264px) {
+  .v-dialog {
+    margin: 37% !important;
+  }
+} */
 </style>

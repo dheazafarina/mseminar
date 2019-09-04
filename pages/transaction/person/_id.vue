@@ -1,250 +1,250 @@
 <template>
-  <div class="padding_step_1">
-    <div 
-      v-if="loaderdata == false" 
-      class="card__ text-xs-center padding_height">
-      <v-progress-circular
-        :size="50"
-        color="primary"
-        indeterminate
-      ></v-progress-circular>
+  <div class="body_">
+    <!-- loading -->
+    <div class="centered_img">
+      <v-layout
+        justify-center
+        align-center
+        v-if="!process">
+        <v-progress-circular
+          indeterminate
+          color="#16A086" />
+      </v-layout>
     </div>
-    <!-- <v-stepper-content step="1"> -->
-      <div 
-        class="table_out" 
-        v-if="loaderdata == true">
-        <div class="step_card">
-          <div>
-            <table class="table_step">
-              <tr style="color: #606060;">
-                <th class="th_step">Kategori Tiket</th>
-                <th class="th_step">Harga per tiket</th>
-                <th class="th_step">Jumlah Tiket</th>
-                <th class="th_step">Total Harga</th>
-              </tr>
-              <tr>
-                <td class="td_step">{{data_bill.seminar_temporary_cart_type_seat}}</td>
-                <td class="td_step"><b>{{data_bill.seminar_temporary_cart_ticket_price | price}}</b></td>
-                <td class="td_step">{{data_bill.seminar_temporary_cart_total_ticket}} Kursi</td>
-                <td class="td_step"><b>{{data_bill.seminar_temporary_cart_ticket_price | price}}</b></td>
-              </tr>
-              <tr>
-                <td class="td_step"></td>
-                <td class="td_step" style="color: #16A086;"><b></b></td>
-                <td class="td_step"><b>Total Pembeliaan</b></td>
-                <td class="td_step" style="color: #16A086;"><b>{{data_bill.seminar_temporary_cart_total_price | price}}</b></td>
-              </tr>
-            </table>
+
+    <div v-if="process == true">
+      <div>
+        <table class="table_price">
+          <tr style="color: #606060;">
+            <th class="th_step">Kategori Tiket</th>
+            <th class="th_step">Harga per tiket</th>
+            <th class="th_step">Jumlah Tiket</th>
+            <th class="th_step">Total Harga</th>
+          </tr>
+          <tr>
+            <td class="td_price capitalize">{{data_bill.seminar_temporary_cart_type_seat}}</td>
+            <td class="td_price"><b>{{data_bill.seminar_temporary_cart_ticket_price | price}}</b></td>
+            <td class="td_price width2">{{data_bill.seminar_temporary_cart_total_ticket}} Kursi</td>
+            <td class="td_price width1"><b>{{data_bill.seminar_temporary_cart_ticket_price | price}}</b></td>
+          </tr>
+        </table>
+
+        <div class="txt_total">
+          Total pembelian <span class="text_color font_bold">{{ data_bill.seminar_temporary_cart_total_price | price }}</span>
+        </div>
+
+        <v-divider class="divider_"></v-divider>
+
+        <div style="border: 1px solid #ddd;">
+          <div class="radio_">
+            <v-radio-group
+              class="radio_group"
+              v-model="column" 
+              column>
+              <v-radio 
+                label="Gunakan Profile Gotraining" 
+                value="gotraining" 
+                class="font_bold">
+              </v-radio>
+              <v-radio
+                label="Data Pemesan"
+                value="pesan"
+                class="font_bold">
+              </v-radio>
+            </v-radio-group>
           </div>
-          <div class="step_1_data">
-            <div class="radio_">
-              <v-radio-group 
-                v-model="column" 
-                column>
-                <v-radio 
-                  label="Gunakan Profile Gotraining" 
-                  value="gotraining" 
-                  style="font-weight: bold;"></v-radio>
-                <v-radio label="Data Pemesan" value="pesan" style="font-weight: bold;"></v-radio>
-              </v-radio-group>
-            </div>
-            <div 
-              style="padding: 15px 25px;" 
-              v-if="column === 'pesan'">
-              <div v-if="dataPersonEdit.length === 0">
-                <div>
-                  <p class="form_">
-                    Nama Lengkap
-                  </p>
-                  <input v-model="name" type="text" class="name_input">
-                  <div
-                    class="error_message"
-                    v-if="hasOwnProp(error, 'name') == true && 
-                                      error.name.length > 0"
-                    style="margin-top: 2%;">
-                    {{error.name[0].message}}
-                  </div>
-                </div>
-                <div style="margin-top: 2%">
-                  <v-layout row wrap>
-                    <v-flex 
-                      xs12 sm6 md5>
-                      <p class="form_">
-                        Email
-                      </p>
-                      <input v-model="email" type="text" class="name_input">
-                      <div
-                        class="error_message"
-                        v-if="hasOwnProp(error, 'email') == true && 
-                                          error.email.length > 0"
-                        style="margin-top: 2%;">
-                        {{error.email[0].message}}
-                      </div>
-                    </v-flex>
-                    <v-flex 
-                      xs12 sm6 md5 style="margin-left: auto">
-                      <p class="form_">
-                        No Handphone
-                      </p>
-                      <input v-model="phone" type="number" class="name_input">
-                      <div
-                        class="error_message"
-                        v-if="hasOwnProp(error, 'phone') == true && 
-                                          error.phone.length > 0"
-                        style="margin-top: 2%;">
-                        {{error.phone[0].message}}
-                      </div>
-                    </v-flex>
-                  </v-layout>
-                </div>
-                <div style="margin-top: 2%;">
-                  <small>E-tiket akan dikirim ke emailmu</small>
-                </div>
-              </div>
-              <div v-if="dataPersonEdit.length !== 0">
-                <div>
-                  <p class="form_">
-                    Nama Lengkap
-                  </p>
-                  <input v-model="dataPersonEdit.seminar_temporary_transaction_member_name" type="text" class="name_input">
-                  <div
-                    class="error_message"
-                    v-if="hasOwnProp(error, 'name') == true && 
-                                      error.name.length > 0"
-                    style="margin-top: 2%;">
-                    {{error.name[0].message}}
-                  </div>
-                </div>
-                <div style="margin-top: 2%">
-                  <v-layout row wrap>
-                    <v-flex 
-                      xs12 sm6 md5>
-                      <p class="form_">
-                        Email
-                      </p>
-                      <input v-model="dataPersonEdit.seminar_temporary_transaction_member_email" type="text" class="name_input">
-                      <div
-                        class="error_message"
-                        v-if="hasOwnProp(error, 'email') == true && 
-                                          error.email.length > 0"
-                        style="margin-top: 2%;">
-                        {{error.email[0].message}}
-                      </div>
-                    </v-flex>
-                    <v-flex 
-                      xs12 sm6 md5 style="margin-left: auto">
-                      <p class="form_">
-                        No Handphone
-                      </p>
-                      <input v-model="dataPersonEdit.seminar_temporary_transaction_phone" type="number" class="name_input">
-                      <div
-                        class="error_message"
-                        v-if="hasOwnProp(error, 'phone') == true && 
-                                          error.phone.length > 0"
-                        style="margin-top: 2%;">
-                        {{error.phone[0].message}}
-                      </div>
-                    </v-flex>
-                  </v-layout>
-                </div>
-                <div style="margin-top: 2%;">
-                  <small>E-tiket akan dikirim ke emailmu</small>
-                </div>
-              </div>
-            </div>
-            <div style="padding: 15px 25px;" v-if="column === 'gotraining'">
+
+          <div class="padding_"
+            v-if="column === 'pesan'">
+            <div v-if="dataPersonEdit.length === 0">
               <div>
-                <table class="table_step_">
-                  <tr style="color: #606060;">
-                    <th class="th_step_">Nama Lengkap</th>
-                    <th class="th_step_">Email</th>
-                    <th class="th_step_">No Handphone</th>
-                  </tr>
-                  <tr>
-                    <td class="td_step_">{{dataUser.member_name}}</td>
-                    <td class="td_step_">{{dataUser.member_email}}</td>
-                    <td class="td_step_">{{dataUser.member_mobile_phone_number}}</td>
-                  </tr>
-                </table>
+                <p class="title_field">
+                  Nama Lengkap
+                </p>
+                <input v-model="name" type="text" class="name_input">
+                <div
+                  class="error_message"
+                  v-if="hasOwnProp(error, 'name') == true && 
+                                    error.name.length > 0"
+                  style="margin-top: 2%;">
+                  {{error.name[0].message}}
+                </div>
               </div>
-              <div style="margin-top: 2%; margin-left: 15px;">
+              <div style="margin-top: 2%">
+                <p class="title_field">
+                  Email
+                </p>
+                <input v-model="email" type="text" class="name_input">
+                <div
+                  class="error_message"
+                  v-if="hasOwnProp(error, 'email') == true && 
+                                    error.email.length > 0"
+                  style="margin-top: 2%;">
+                  {{error.email[0].message}}
+                </div>
+              </div>
+              <div>
+                <p class="title_field">
+                  No Handphone
+                </p>
+                <input v-model="phone" type="number" class="name_input">
+                <div
+                  class="error_message"
+                  v-if="hasOwnProp(error, 'phone') == true && 
+                                    error.phone.length > 0"
+                  style="margin-top: 2%;">
+                  {{error.phone[0].message}}
+                </div>
+              </div>
+              <div style="margin-top: 2%;">
+                <small>E-tiket akan dikirim ke emailmu</small>
+              </div>
+            </div>
+
+            <div v-if="dataPersonEdit.length !== 0">
+              <div>
+                <p class="title_field">
+                  Nama Lengkap
+                </p>
+                <input v-model="dataPersonEdit.seminar_temporary_transaction_member_name" type="text" class="name_input">
+                <div
+                  class="error_message"
+                  v-if="hasOwnProp(error, 'name') == true && 
+                                    error.name.length > 0"
+                  style="margin-top: 2%;">
+                  {{error.name[0].message}}
+                </div>
+              </div>
+              <div style="margin-top: 2%">
+                <p class="title_field">
+                  Email
+                </p>
+                <input v-model="dataPersonEdit.seminar_temporary_transaction_member_email" type="text" class="name_input">
+                <div
+                  class="error_message"
+                  v-if="hasOwnProp(error, 'email') == true && 
+                                    error.email.length > 0"
+                  style="margin-top: 2%;">
+                  {{error.email[0].message}}
+                </div>
+              </div>
+              <div>
+                <p class="title_field">
+                  No Handphone
+                </p>
+                <input v-model="dataPersonEdit.seminar_temporary_transaction_phone" type="number" class="name_input">
+                <div
+                  class="error_message"
+                  v-if="hasOwnProp(error, 'phone') == true && 
+                                    error.phone.length > 0"
+                  style="margin-top: 2%;">
+                  {{error.phone[0].message}}
+                </div>
+              </div>
+              <div style="margin-top: 2%;">
                 <small>E-tiket akan dikirim ke emailmu</small>
               </div>
             </div>
           </div>
-          <div 
-            class="padding_button_transaction"  
-            v-if="dataPersonEdit.length === 0">
-            <v-btn
-              class="button_next"
-              v-if="saveform === false"
-              @click="fetchDataUser"
-            >
-              Lanjutkan
-            </v-btn>
-            <v-btn 
-              v-if="saveform === true" 
-              type="button" 
-              class="button_next" 
-              loading>
-              Lanjutkan
-            </v-btn>
-            <div v-if="error.message.length !== 0" style="color: red">
-              {{error.message}}
+          <div class="padding_"
+            v-if="column === 'gotraining'">
+            <div>
+              <table class="table_step_">
+                <tr style="color: #606060;">
+                  <th class="th_step_">Nama Lengkap</th>
+                  <th class="th_step_">Email</th>
+                  <th class="th_step_">No Handphone</th>
+                </tr>
+                <tr>
+                  <td class="td_step_">{{dataUser.member_name}}</td>
+                  <td class="td_step_">{{dataUser.member_email}}</td>
+                  <td class="td_step_">{{dataUser.member_mobile_phone_number}}</td>
+                </tr>
+              </table>
             </div>
-          </div>
-          <div 
-            class="padding_button_transaction" 
-            v-if="dataPersonEdit.length !== 0">
-            <v-btn
-              class="button_next"
-              v-if="saveform === false"
-              @click="fetchDataUserUpdete">
-              Lanjutkan
-            </v-btn>
-            <v-btn 
-              v-if="saveform === true" 
-              type="button" 
-              class="button_next" 
-              loading>
-              Lanjutkan
-            </v-btn>
-            <div v-if="error.message.length !== 0" style="color: red">
-              {{error.message}}
+            <div style="margin-top: 2%; margin-left: 15px;">
+              <small>E-tiket akan dikirim ke emailmu</small>
             </div>
           </div>
         </div>
+
+        <div class="text_center"
+          style="margin: 15px"
+          v-if="dataPersonEdit.length === 0">
+          <v-btn
+            color="#16a086"
+            class="capitalize font12 btn_color"
+            v-if="saveform === false"
+            @click="fetchDataUser">
+            Lanjutkan
+          </v-btn>
+          <v-btn
+            color="#16a086"
+            class="capitalize font12 btn_color"
+            v-if="saveform === true" 
+            type="button"
+            loading>
+            Lanjutkan
+          </v-btn>
+          <div v-if="error.message.length !== 0" style="color: red">
+            {{error.message}}
+          </div>
+        </div>
+
+        <div class="text_center"
+          style="margin: 15px"
+          v-if="dataPersonEdit.length !== 0">
+          <v-btn
+            color="#16a086"
+            class="capitalize font12 btn_color"
+            v-if="saveform === false"
+            @click="fetchDataUserUpdete">
+            Lanjutkan
+          </v-btn>
+          <v-btn
+            color="#16a086"
+            class="capitalize font12 btn_color"
+            v-if="saveform === true" 
+            type="button"
+            loading>
+            Lanjutkan
+          </v-btn>
+          <div v-if="error.message.length !== 0" style="color: red">
+            {{error.message}}
+          </div>
+        </div>
       </div>
-      <v-dialog
-        v-model="type_chair_dialog"
-        width="500"
-        persistent>
-        <v-card>
-          <v-card-text class="text_popup_transaction">
-            <div>
-              Maaf kursi yang Anda pilih sudah habis
-            </div>
-            2 detik akan dialihkan
-          </v-card-text>
-        </v-card>
-      </v-dialog>
-      <v-dialog
-        v-model="date_end_dialog"
-        width="500"
-        persistent>
-        <v-card>
+    </div>
+    <!-- <v-dialog
+      v-model="type_chair_dialog"
+      width="500"
+      persistent>
+      <v-card>
         <v-card-text class="text_popup_transaction">
           <div>
-            Maaf penjualan tiket seminar ini telah habis
+            Maaf kursi yang Anda pilih sudah habis
           </div>
           2 detik akan dialihkan
         </v-card-text>
       </v-card>
     </v-dialog>
+    <v-dialog
+      v-model="date_end_dialog"
+      width="500"
+      persistent>
+      <v-card>
+      <v-card-text class="text_popup_transaction">
+        <div>
+          Maaf penjualan tiket seminar ini telah habis
+        </div>
+        2 detik akan dialihkan
+      </v-card-text>
+      </v-card>
+    </v-dialog> -->
   </div>
 </template>
+
 <script>
-  import axios from 'axios';
   const Cookie = process.client ? require('js-cookie') : undefined
   export default {
     middleware: 'student',
@@ -273,7 +273,7 @@
       },
       check_purchase:null,
       dataMember: [],
-      loaderdata: false,
+      process: false,
       dataPersonEdit:[],
       id_tem: '',
       type_chair_dialog : false,
@@ -313,10 +313,10 @@
           error.errorLength = false
 
           if (this.name.length < 1) {
-            error.name[0].message = 'Masukkan Nama anda'
+            error.name[0].message = 'Masukkan nama anda'
             error.errorLength = true
           } else if (this.name.length > 0 && this.name.length > 50) {
-            error.name[0].message = 'Minimal Nama 50 karakter'
+            error.name[0].message = 'Minimal nama 50 karakter'
             error.errorLength = true
           } else {
             error.name = []
@@ -336,10 +336,10 @@
             error.phone[0].message = 'Masukkan nomor telepon aktif';
             error.errorLength = true;
           } else if (this.phone.length < 10) {
-            error.phone[0].message = 'Minimal nomor handphone 10 Karakter';
+            error.phone[0].message = 'Minimal nomor handphone 10 karakter';
             error.errorLength = true;
           } else if (this.phone.length > 13) {
-            error.phone[0].message = 'Maksimal nomor handphone 13 Karakter';
+            error.phone[0].message = 'Maksimal nomor handphone 13 karakter';
             error.errorLength = true;
           } else if (this.phone.length > 0 && !this.validationPhone(this.phone)) {
             error.phone[0].message = 'Nomor telepon tidak valid'
@@ -534,7 +534,7 @@
               window.location="/collection/" + this.$route.params.id
             } 
           }
-          this.loaderdata = true
+          this.process = true
         })
       },
       async toMainDetail(){
@@ -563,7 +563,7 @@
           seminar_id: this.$route.params.id
         })
         this.fetchCheck()
-        this.loaderdata = true
+        this.process = true
       },
       fetchDataUserUpdete: function (){
         this.saveform = true
@@ -689,8 +689,6 @@
   }
   .radio_ {
     background: #f3f3f3;
-    padding: 15px 25px;
-
   }
   .name_input {
     -webkit-appearance: none;

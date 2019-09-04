@@ -222,6 +222,9 @@
   background: #f8f8f9;
   box-shadow: 0 0 0 1px #a9d5de inset, 0 0 0 0 transparent;
 }
+.cursor {
+  cursor: pointer;
+}
 
 
 
@@ -309,6 +312,9 @@
 .font14, .txt_filter {
   font-size: 14px !important;
 }
+.font15 {
+  font-size: 15px !important;
+}
 .btn_color {
   color: white !important;
 }
@@ -330,6 +336,9 @@ a:-webkit-any-link {
 }
 .mt15 {
   margin-top: 15px;
+}
+.m30 {
+  margin: 30px;
 }
 .code__ {
   margin-top: -4px;
@@ -464,6 +473,20 @@ a:-webkit-any-link {
 .img_banner {
   width: 100%;
 }
+.text_step {
+  text-align: center;
+  color: rgb(255, 255, 255) !important;
+  font-size: 10px;
+}
+.login_reg {
+  padding-top: 10%;
+  padding-right: 20%;
+  padding-left: 25%;
+  padding-bottom: 5%
+}
+.dial_date {
+  width: 80%;
+}
 
 
 
@@ -488,15 +511,77 @@ a:-webkit-any-link {
     color: #c74b16;
     font-size: 10px;
   }
+  .position_ {
+    padding-left: 25px !important;
+  }
+  .login_reg {
+    padding-right: 0%;
+    padding-top: 10%;
+    padding-left: 10%;
+    padding-bottom: 5%;
+  }
+  .login_form {
+    padding-right: 0%;
+    padding-top: 10%;
+    padding-left: 1%;
+    padding-bottom: 5%;
+  }
 }
 
 @media screen and (max-width: 375px) {
   .v-icon {
     font-size: 120% !important;
   }
+  .position_ {
+    padding-left: 51px;
+  }
+  .search_box {
+    padding: 0px 25% 0px 15%;
+  }
+  .login_reg {
+    padding-right: 0%;
+    padding-top: 10%;
+    padding-left: 10%;
+    padding-bottom: 5%;
+  }
+  .login_form {
+    padding-right: 0%;
+    padding-top: 10%;
+    padding-left: 1%;
+    padding-bottom: 5%;
+  }
 }
 
-@media screen and (min-width: 500px) {
+@media screen and (min-width: 411px) {
+  .position_ {
+    padding-left: 70px;
+  }
+  .search_box {
+    padding: 0px 25% 0px 15%;
+  }
+  .text_step {
+    text-align: center;
+    color: rgb(255, 255, 255) !important;
+    font-size: 11px;
+  }
+  .text_title_benner {
+    font-size: 14px !important;
+    font-weight: 700;
+    color: #696969;
+    text-align: center;
+  }
+  .login_form {
+    padding-right: 0%;
+    padding-top: 10%;
+    padding-left: 1%;
+    padding-bottom: 5%;
+  }
+  .payment_form {
+    padding-top: 4%;
+    padding-right: 20%;
+    padding-left: 25%;
+    padding-bottom: 5%;
+  }
   .width_img_code_qr {
     width: 40%;
   }
@@ -506,11 +591,149 @@ a:-webkit-any-link {
   }
 }
 
-@media screen and (min-width: 1264px) {
+@media screen and (min-width: 768px) {
+  .search_box {
+    padding: 0px 25% 0px 32%;
+  }
+  .link_to {
+    text-align: center;
+    margin-top: -15px !important;
+    background-color: rgba(39,98,106,0.76078);
+    padding: 8px;
+    border-bottom: 0;
+    border-radius: 8px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 25% !important;
+    font-weight: 700;
+    color: #fff !important;
+  }
+  .text_step {
+    text-align: center;
+    color: rgb(255, 255, 255) !important;
+    font-size: 21px;
+  }
+  .text_title_benner {
+    font-size: 20px !important;
+    font-weight: 700;
+    color: #696969;
+    text-align: center;
+  }
+  .login_reg {
+    padding-top: 10%;
+    padding-right: 20%;
+    padding-left: 29%;
+    padding-bottom: 5%;
+  }
+  .login_form {
+    padding-top: 10%;
+    padding-right: 20%;
+    padding-left: 25%;
+    padding-bottom: 5%
+  }
+  .img_verify {
+    width: 35% !important;
+  }
+  .padding_filter_ {
+    margin-top: 95px;
+    padding-left: 180px;
+    padding-right: 180px;
+  }
+  .payment_form {
+    padding-top: 4%;
+    padding-right: 20%;
+    padding-left: 25%;
+    padding-bottom: 5%;
+  }
+  .payment_form {
+    padding-top: 4%;
+    padding-right: 20%;
+    padding-left: 25%;
+    padding-bottom: 5%;
+  }
+  .width_img_code_qr {
+    width: 40%;
+  }
+  .lbl_ticket {
+    width: 60%;
+    margin-top: 5px !important;
+  }
+  .container_res {
+    padding: 1% 10% 0% 10%;
+  }
+  .txt_area {
+    width: 150%;
+  }
+  .triangle {
+    height: 16px;
+    width: 16px;
+    background: #fff;
+    z-index: 1;
+    position: absolute;
+    transform: rotate(46deg);
+    right: 33%;
+    border: 1px solid #000;
+    margin-top: -8px;
+    border-right: none;
+    border-bottom: none;
+  }
+}
+
+@media screen and (min-width: 1000px) {
   .cover_img {
     width: 100%;
     object-fit: cover;
     height: 250px;
+  }
+  .link_to {
+    text-align: center;
+    margin-top: -15px !important;
+    background-color: rgba(39,98,106,0.76078);
+    padding: 8px;
+    border-bottom: 0;
+    border-radius: 8px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 25% !important;
+    font-weight: 700;
+    color: #fff !important;
+  }
+  .text_step {
+    text-align: center;
+    color: rgb(255, 255, 255) !important;
+    font-size: 14px;
+  }
+  .text_title_benner {
+    font-size: 20px !important;
+    font-weight: 700;
+    color: #696969;
+    text-align: center;
+  }
+  .login_reg {
+    padding-top: 10%;
+    padding-right: 20%;
+    padding-left: 29%;
+    padding-bottom: 5%;
+  }
+  .login_form {
+    padding-top: 10%;
+    padding-right: 20%;
+    padding-left: 25%;
+    padding-bottom: 5%
+  }
+  .img_verify {
+    width: 35% !important;
+  }
+  .padding_filter_ {
+    margin-top: 95px;
+    padding-left: 180px;
+    padding-right: 180px;
+  }
+  .payment_form {
+    padding-top: 4%;
+    padding-right: 20%;
+    padding-left: 25%;
+    padding-bottom: 5%;
   }
   .width_img_code_qr {
     width: 40%;
@@ -521,5 +744,30 @@ a:-webkit-any-link {
   }
   .not_found_img {
     width: 15% !important;
+  }
+  .txt_filter {
+    text-align: right;
+    color: #16a086;
+    margin-top: -45px;
+    margin-bottom: -15px;
+  }
+  .triangle {
+    height: 16px;
+    width: 16px;
+    background: #fff;
+    z-index: 1;
+    position: absolute;
+    transform: rotate(46deg);
+    right: 35%;
+    border: 1px solid #000;
+    margin-top: -8px;
+    border-right: none;
+    border-bottom: none;
+  }
+  .txt_area {
+    width: 107%;
+  }
+  .container_res {
+    padding: 1% 25% 0% 10%;
   }
 }

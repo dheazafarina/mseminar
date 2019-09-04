@@ -1,5 +1,5 @@
 <template>
-  <div class="body_">
+  <div class="body_ payment_form">
     
   <div class="text_center" v-if="expired.member_mobile_phone_number === ''">
     <div style="margin-top: 45px;">
@@ -21,7 +21,7 @@
           rounded
           color="#7842ff"
           @click="sendOtp"
-          class="capitalize font12 btn_color">
+          class="capitalize font12 btn_color cursor">
           Minta Kode Verifikasi
         </v-btn>
       </div>
@@ -35,7 +35,7 @@
           rounded
           color="#3eb0d2"
           @click="changePhone"
-          class="capitalize font12 btn_color">
+          class="capitalize font12 btn_color cursor">
           Ganti Nomor Telepon
         </v-btn>
       </div>

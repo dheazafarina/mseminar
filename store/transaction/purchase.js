@@ -2,40 +2,31 @@ import axios from 'axios'
 
 const state = () => ({
   tconfig: {},
-  bill: {}
+  seat: {}
 })
 
 const mutations = {
   SET_TICKET_CONFIG (state, tconfig) {
     state.tconfig = tconfig || {}
   },
-  SET_TICKET_CONFIG_BILL (state, bill) {
-    state.bill = bill || {}
+  SET_TICKET_SEAT(state, seat) {
+    state.seat = seat || {}
   }
 }
 
 const actions = {
-  async GET_TICKET_CONFIG ({ commit }, { seminar_id }) {
-    const { data } = await axios.get(`${process.env.API}seminar-public/ticket-config/${seminar_id}`, {
+  async GET_TICKET_CONFIG ({ commit }, { ticket_id }) {
+    const { data } = await axios.get(`${process.env.API}seminar-public/ticket-config/${ticket_id}`, {
       headers: {
         'X-Authorization': process.env.AUTH_PUBLIC,
         'Authorization': `Bearer ${this.state.auth.token}`
       }
     })
     commit('SET_TICKET_CONFIG', data.result)
-    return data
+    commit('SET_TICKET_SEAT', data.result.config_seat)
   },
-  async GET_TICKET_CONFIG_BILL ({ commit }, { seminar_id }) {
-    const { data } = await axios.get(`${process.env.API}seminar-public/ticket-config/bill/${seminar_id}`, {
-      headers: {
-        'X-Authorization': process.env.AUTH_PUBLIC,
-        'Authorization': `Bearer ${this.state.auth.token}`
-      }
-    })
-    commit('SET_TICKET_CONFIG_BILL', data.result)
-  },
-  async POST_TICKET_CONFIG ({ commit }, { seminar_id, product_seat, price_ticket }) {
-    return fetch (`${process.env.API}seminar-public/ticket-config/bill`, {
+  async POST_TICKET_CONFIG({ commit }, { seminar_id, product_seat, price_ticket }) {
+    return fetch(`${process.env.API}seminar-public/ticket-config/bill`, {
       method: 'POST',
       headers: {
         'X-Authorization': process.env.AUTH_PUBLIC,
